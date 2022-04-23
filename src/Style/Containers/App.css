@@ -1,0 +1,40 @@
+@import '../Abstracts/_index.css';
+
+html {
+  font-size: var(--fontSize);
+}
+
+body {
+  margin: 0;
+}
+
+.App {
+  height: calc(100vh - 2rem);
+  padding: 1rem;
+  background: var(--primaryColor);
+
+  font-family: var(--fontSora);
+  word-spacing: 0.3rem;
+  letter-spacing: 0.2rem;
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(1, 90vw);
+  grid-template-rows: repeat(3, 20vh);
+  justify-content: center;
+  grid-gap: 1.5rem;
+
+  margin-top: 2rem;
+}
+
+@media only screen and (min-width: 992px) {
+  main {
+    grid-template-columns: repeat(2, 45vw);
+    grid-template-rows: repeat(2, 20vh);
+  }
+
+  .box-list {
+    grid-column: span 2;
+  }
+}

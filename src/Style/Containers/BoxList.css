@@ -1,0 +1,6 @@
+@import '../Abstracts/_index.css';
+
+.box-list {
+  background-color: var(--fourthColor);
+  animation: var(--scaleFwdAnim);
+}

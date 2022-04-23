@@ -1,0 +1,6 @@
+@import '../Abstracts/_index.css';
+
+.box-editor {
+  background-color: var(--thirdColor);
+  animation: var(--scaleFwdAnim);
+}

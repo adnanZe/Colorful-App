@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;500;700;800&display=swap');
+
+/*  dark mode   light mode
+  #d83f87       #e8630a
+  #44318d       #035397
+  #2a1b3d       #FCD900
+  #e98074       #001e6c
+  #a4b3b6       #6c1800
+*/
+
+:root {
+  --fontSize: calc(10px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+
+  --primaryColor: #e8630a;
+  --secondColor: #035397;
+  --thirdColor: #fcd900;
+  --fourthColor: #001e6c;
+  --fifthColor: #6c1800;
+
+  --textColor: white;
+
+  --fontRoboto: 'Roboto', sans-serif;
+  --fontSora: 'Sora', sans-serif;
+
+  --bounceAnimTop: bounceAnimTop 2s ease 0s 1 normal forwards;
+  --bounceAnimBottom: bounceAnimBottom 2s ease 0s 1 normal forwards;
+  --bounceAnimLeft: bounceAnimLeft 2s ease 0s 1 normal forwards;
+  --bounceAnimRight: bounceAnimRight 2s ease 0s 1 normal forwards;
+  --dropInAnim: dropInAnim 2s ease 0s 1 normal forwards;
+  --waveAnim: waveAnim 2s ease 0s 1 normal forwards;
+  --scaleFwdAnim: scaleFwdAnim 4s ease-in 0s 1 normal forwards;
+}
+
+[data-theme='dark'] {
+  --primaryColor: #2a1b3d;
+  --secondColor: #d83f87;
+  --thirdColor: #a4b3b6;
+  --fourthColor: #44318d;
+  --fifthColor: #e98074;
+
+  --textColor: white;
+}
+
+/* Tiny devices (Galaxy Fold) */
+@media only screen and (max-width: 350px) {
+  /* :root {
+    --fontSize: 10px;
+  } */
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  /* default root settings */
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  /* :root {
+    --fontSize: 15px;
+  } */
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  /* :root {
+    --fontSize: 16px;
+  } */
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  /* :root {
+    --fontSize: 17px;
+  } */
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  /* :root {
+    --fontSize: 18px;
+  } */
+}

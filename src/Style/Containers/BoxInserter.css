@@ -1,0 +1,6 @@
+@import '../Abstracts/_index.css';
+
+.box-inserter {
+  background-color: var(--secondColor);
+  animation: var(--scaleFwdAnim);
+}

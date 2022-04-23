@@ -1,0 +1,61 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb-typescript",
+    "prettier"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2020,
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "no-var": "off",
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "never"
+    }],
+    "react/jsx-filename-extension": "warn",
+    "react/jsx-one-expression-per-line": "off",
+    "react/prop-types": "off",
+    "import/prefer-default-export": "off",
+    "no-param-reassign": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/indent": "off",
+    "no-plusplus": "off",
+    "prefer-const": "warn",
+    "react/jsx-no-bind": "error",
+    "react/no-array-index-key": "warn",
+    "eqeqeq": "off",
+    "newline-before-return": "error",
+    "lines-between-class-members": "error",
+    "react/jsx-props-no-spreading": "off",
+    "prefer-destructuring": "off",
+    "guard-for-in": "off",
+    "no-restricted-syntax": "off",
+    "import/extensions": "off",
+    "import/no-named-as-default": "off",
+    "no-continue": "off",
+    "no-debugger": "warn",
+    "import/no-extraneous-dependencies": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "globals": {
+    "window": true,
+    "EventSource": true
+  }
+}
