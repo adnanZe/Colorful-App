@@ -12,7 +12,7 @@ function Title(): JSX.Element {
       {TITLE_WORDS.split('').map((letter: string, index: number) => {
         return (
           <span
-            className={letter == ' ' ? 'space' : ''}
+            className={letter == ' ' ? 'space' : 'letter'}
             style={addCustomPropCSS(index + 11)}
             key={`${letter + index.toString()}`}
           >
@@ -20,7 +20,7 @@ function Title(): JSX.Element {
           </span>
         );
       })}
-      <span className="logoLetter" style={addCustomPropCSS(23)}></span>
+      <span className="logoTitle" style={addCustomPropCSS(23)}></span>
     </h1>
   );
 }

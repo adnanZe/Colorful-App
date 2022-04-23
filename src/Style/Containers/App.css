@@ -6,10 +6,13 @@ html {
 
 body {
   margin: 0;
+  /* overflow: hidden; */
 }
 
 .App {
-  height: calc(100vh - 2rem);
+  /* height: calc(100vh - 2rem); */
+  min-height: 100vh;
+
   padding: 1rem;
   background: var(--primaryColor);
 
@@ -21,20 +24,18 @@ body {
 main {
   display: grid;
   grid-template-columns: repeat(1, 90vw);
-  grid-template-rows: repeat(3, 20vh);
+  grid-template-rows: repeat(3, auto);
   justify-content: center;
   grid-gap: 1.5rem;
 
   margin-top: 2rem;
+
+  font-family: var(--fontRoboto);
 }
 
 @media only screen and (min-width: 992px) {
   main {
     grid-template-columns: repeat(2, 45vw);
-    grid-template-rows: repeat(2, 20vh);
-  }
-
-  .box-list {
-    grid-column: span 2;
+    grid-template-rows: repeat(2, auto);
   }
 }

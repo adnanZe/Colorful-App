@@ -11,12 +11,15 @@
 
 :root {
   --fontSize: calc(10px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+  /* --fontSize: 12px; */
 
   --primaryColor: #e8630a;
   --secondColor: #035397;
   --thirdColor: #fcd900;
   --fourthColor: #001e6c;
   --fifthColor: #6c1800;
+
+  --bgInput: white;
 
   --textColor: white;
 
@@ -29,7 +32,9 @@
   --bounceAnimRight: bounceAnimRight 2s ease 0s 1 normal forwards;
   --dropInAnim: dropInAnim 2s ease 0s 1 normal forwards;
   --waveAnim: waveAnim 2s ease 0s 1 normal forwards;
-  --scaleFwdAnim: scaleFwdAnim 4s ease-in 0s 1 normal forwards;
+  --scaleFwdAnim: scaleFwdAnim 2s ease-in 0s 1 normal forwards;
+
+  --transition: all 0.3s ease 0s;
 }
 
 [data-theme='dark'] {

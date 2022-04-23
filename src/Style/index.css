@@ -1,15 +1,8 @@
-/* selector {
-   display stuff 
-   positioning stuff 
-   box-model stuff 
-   typography 
-   manipulation 
-   misc 
-}*/
-
 @import './Containers/App.css';
-@import './Containers/Title.css';
-@import './Containers/ToggleDarkMode.css';
+@import './Components/Title.css';
+@import './Components/ToggleDarkMode.css';
+@import './Components/Input.css';
+@import './Components/Button.css';
 @import './Containers/BoxInserter.css';
 @import './Containers/BoxEditor.css';
 @import './Containers/BoxList.css';

@@ -1,6 +1,67 @@
 @import '../Abstracts/_index.css';
 
 .box-editor {
-  background-color: var(--thirdColor);
-  animation: var(--scaleFwdAnim);
+  background-color: var(--fourthColor);
+  padding: 1rem;
+  animation: var(--bounceAnimRight);
+  transition: var(--transition);
+  border-radius: 2rem;
+}
+
+.box-editor h3 {
+  color: var(--textColor);
+  margin: 0;
+  padding-bottom: 0.5rem;
+  text-align: center;
+  font-family: var(--fontSora);
+}
+
+.box-editor > form {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(4, auto);
+  grid-gap: 1rem;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.box-editor div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.box-editor > form :nth-child(1) {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.box-editor > form :nth-child(2) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.box-editor > form :nth-child(3) {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.box-editor > form :nth-child(4) {
+  grid-column: 2;
+  grid-row: 1;
+}
+.box-editor > form :nth-child(5) {
+  grid-column: 2;
+  grid-row: 2 / 4;
+}
+
+.box-editor > form :nth-child(6) {
+  grid-column: 2;
+  grid-row: 4;
+}
+
+.selected-color {
+  border: 5px black solid;
+  background-color: aqua;
+  align-self: stretch;
 }

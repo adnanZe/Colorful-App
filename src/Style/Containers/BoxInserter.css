@@ -2,5 +2,55 @@
 
 .box-inserter {
   background-color: var(--secondColor);
-  animation: var(--scaleFwdAnim);
+  padding: 1rem;
+  animation: var(--bounceAnimLeft);
+  transition: var(--transition);
+  border-radius: 2rem;
+}
+
+.box-inserter h3 {
+  color: var(--textColor);
+  margin: 0;
+  padding-bottom: 0.5rem;
+  text-align: center;
+  font-family: var(--fontSora);
+}
+
+.box-inserter > form {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(4, auto);
+  grid-gap: 1rem;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.box-inserter div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.box-inserter > form :nth-child(1) {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.box-inserter > form :nth-child(2) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.box-inserter > form :nth-child(3) {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.box-inserter > form :nth-child(4) {
+  grid-column: 2;
+  grid-row: 1;
+}
+.box-inserter > form :nth-child(5) {
+  grid-column: 2;
+  grid-row: 2;
 }

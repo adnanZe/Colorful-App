@@ -1,0 +1,32 @@
+@import '../Abstracts/_index.css';
+
+.input-container {
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+
+label {
+  margin-right: 0.3rem;
+  color: var(--textColor);
+}
+
+input {
+  width: 3rem;
+  margin: 0.5rem;
+  padding: 0.3rem;
+  border: 0;
+  background-color: var(--bgInput);
+  font-size: 1.2rem;
+}
+
+input:focus {
+  background-color: var(--fifthColor);
+  color: var(--textColor);
+  outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
