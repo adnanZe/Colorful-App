@@ -31,10 +31,10 @@
   --bounceAnimLeft: bounceAnimLeft 2s ease 0s 1 normal forwards;
   --bounceAnimRight: bounceAnimRight 2s ease 0s 1 normal forwards;
   --dropInAnim: dropInAnim 2s ease 0s 1 normal forwards;
-  --waveAnim: waveAnim 2s ease 0s 1 normal forwards;
-  --scaleFwdAnim: scaleFwdAnim 2s ease-in 0s 1 normal forwards;
+  --waveAnim: waveAnim 4s ease 2s 1 normal forwards;
+  --scaleFwdAnim: scaleFwdAnim 4s ease-in 0s 1 normal forwards;
 
-  --transition: all 0.3s ease 0s;
+  --transition: all 1s ease 0s;
 }
 
 [data-theme='dark'] {

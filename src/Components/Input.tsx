@@ -1,21 +1,26 @@
 import React from 'react';
+import { Path, UseFormRegister } from 'react-hook-form';
 
-interface InputProps {
-  color: string;
-  colorId: string;
+interface FormRGBInputs {
+  red: string;
+  green: string;
+  blue: string;
 }
 
-export const Input: any = React.forwardRef(
-  (props: InputProps, ref: any): JSX.Element => {
-    // const { color, colorId } = props;
+type InputProps = {
+  label: Path<FormRGBInputs>;
+  register: UseFormRegister<FormRGBInputs>;
+};
 
-    return (
-      <div className="input-container">
-        <label htmlFor={props.colorId}>{props.color}:</label>
-        <input type="number" id={props.colorId} ref={ref} />
-      </div>
-    );
-  }
-);
+function Input(props: InputProps): JSX.Element {
+  const { label, register } = props;
 
-Input.displayName = 'Input Component';
+  return (
+    <div>
+      <label htmlFor={label}>{label}:</label>
+      <input type="number" {...register(label)} id={label} />
+    </div>
+  );
+}
+
+export default Input;

@@ -1,11 +1,5 @@
 @import '../Abstracts/_index.css';
 
-.input-container {
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
-}
-
 label {
   margin-right: 0.3rem;
   color: var(--textColor);

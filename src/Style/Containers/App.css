@@ -1,12 +1,28 @@
 @import '../Abstracts/_index.css';
 
+*::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--primaryColor);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--secondColor);
+  border-radius: 1.6rem;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--thirdColor);
+}
+
 html {
   font-size: var(--fontSize);
 }
 
 body {
   margin: 0;
-  /* overflow: hidden; */
 }
 
 .App {
@@ -19,6 +35,8 @@ body {
   font-family: var(--fontSora);
   word-spacing: 0.3rem;
   letter-spacing: 0.2rem;
+
+  transition: var(--transition);
 }
 
 main {

@@ -23,12 +23,7 @@
   grid-gap: 1rem;
   justify-content: space-around;
   align-items: center;
-}
-
-.box-inserter div {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  justify-items: end;
 }
 
 .box-inserter > form :nth-child(1) {
@@ -47,10 +42,25 @@
 }
 
 .box-inserter > form :nth-child(4) {
-  grid-column: 2;
-  grid-row: 1;
+  grid-column: 1;
+  grid-row: 4;
 }
+
 .box-inserter > form :nth-child(5) {
   grid-column: 2;
   grid-row: 2;
+  justify-self: stretch;
+}
+.box-inserter > form :nth-child(6) {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.errors-inserter {
+  color: var(--thirdColor);
+  height: 0.8rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.05rem;
+  word-spacing: 0;
+  transition: var(--transition);
 }

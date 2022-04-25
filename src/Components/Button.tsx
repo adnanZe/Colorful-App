@@ -4,13 +4,18 @@ interface ButtonProps {
   classNames: string[];
   innerText: string;
   type: 'button' | 'submit';
+  onClick?(): void;
 }
 
 function Button(props: ButtonProps): JSX.Element {
-  const { classNames, innerText, type } = props;
+  const { classNames, innerText, type, onClick } = props;
 
   return (
-    <button className={`button-colorful ${classNames.join(' ')}`} type={type}>
+    <button
+      className={`button-colorful ${classNames.join(' ')}`}
+      type={type}
+      onClick={onClick}
+    >
       {innerText}
     </button>
   );

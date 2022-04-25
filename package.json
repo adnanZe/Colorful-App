@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^2.8.8",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -21,6 +22,7 @@
     "redux-thunk": "^2.4.1",
     "typescript": "^4.4.3",
     "use-local-storage": "^2.3.6",
+    "uuidv4": "^6.2.13",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.11"
   },
