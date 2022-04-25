@@ -1,7 +1,7 @@
-import { uuid } from 'uuidv4'; 
+import { v4 } from 'uuid'; 
 import {BoxAction, BoxActionTypes} from './Actions'
 
- interface BoxItem {
+ export interface BoxItem {
     red: string,
     green: string,
     blue: string,
@@ -12,7 +12,7 @@ import {BoxAction, BoxActionTypes} from './Actions'
 
  export interface BoxState {
     boxList: Array<BoxItem>,
-    selectedBoxNumber: number | null;
+    selectedBoxNumber: string | null;
 }
 
 
@@ -26,17 +26,29 @@ let lastId = 0;
 export const boxReducer = (state = initialState, action: BoxAction): BoxState => {
     switch (action.type) {
         case BoxActionTypes.BoxAdded : {
+            if(state.boxList.length === 9){
+                state.boxList.shift();
+            }
+
             return {
                 ...state,
-                boxList: [{
+                boxList: [
+                    ...state.boxList,
+                    {
                     red: action.payload.red,
                     green: action.payload.green,
                     blue: action.payload.blue,
                     creationTime: new Date(),
                     boxNumber: String(++lastId),
-                    boxId: uuid(),
+                    boxId: v4(),
                 }],
-                selectedBoxNumber : null,
+            }
+        }
+
+        case BoxActionTypes.BoxSelected : {
+            return {
+                ...state,
+                selectedBoxNumber : action.payload.boxId,
             }
         }
 

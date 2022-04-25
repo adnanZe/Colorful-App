@@ -2,6 +2,7 @@
 
 *::-webkit-scrollbar {
   width: 0.8rem;
+  background: var(--primaryColor);
 }
 
 *::-webkit-scrollbar-track {
@@ -23,6 +24,7 @@ html {
 
 body {
   margin: 0;
+  overflow-x: hidden;
 }
 
 .App {

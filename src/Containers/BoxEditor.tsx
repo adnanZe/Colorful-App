@@ -5,6 +5,10 @@ import Input from '../Components/Input';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../Validations/InputCheck';
 import Modal from '../Components/Modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { BoxItem } from '../Store/Reducers';
+import store from '../Store/Store';
+import { boxAdded } from '../Store/Actions';
 
 interface FormRGBInputs {
   red: string;
@@ -13,26 +17,44 @@ interface FormRGBInputs {
 }
 
 function BoxEditor(): JSX.Element {
+  const boxItem = useSelector(store.getState);
+  const dispatch = useDispatch();
+
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
+    setValue,
   } = useForm<FormRGBInputs>({ resolver: yupResolver(schema) });
 
-  const [rgbInfo, setRgbInfo] = useState<FormRGBInputs>();
+  const [rgbInfo, setRgbInfo] = useState<BoxItem>();
   const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(rgbInfo);
+    setRgbInfo(
+      boxItem.boxList.find(
+        (box: BoxItem) => box.boxId == boxItem.selectedBoxNumber
+      )
+    );
+  }, [boxItem]);
+
+  useEffect(() => {
+    if (rgbInfo) {
+      setValue('red', rgbInfo?.red);
+      setValue('green', rgbInfo?.green);
+      setValue('blue', rgbInfo?.blue);
+    }
   }, [rgbInfo]);
 
   function onSubmit(data: FormRGBInputs): void {
-    setRgbInfo({
-      red: String(data.red),
-      green: String(data.green),
-      blue: String(data.blue),
-    });
+    dispatch(
+      boxAdded({
+        red: String(data.red),
+        green: String(data.green),
+        blue: String(data.blue),
+      })
+    );
     reset();
   }
 
@@ -51,21 +73,30 @@ function BoxEditor(): JSX.Element {
         <p className="errors-editor">
           {errors.red?.message || errors.green?.message || errors.blue?.message}
         </p>
-        <p className="editor-boxNumber">Box number 2</p>
+        <p className="editor-boxNumber">Box Number: {rgbInfo?.boxNumber}</p>
         <Button
           classNames={['info']}
           innerText={'Info'}
           type={'button'}
           onClick={handleModal}
         />
-        <div className="selected-color">Box selected</div>
+        {rgbInfo ? (
+          <div
+            className="selected-color"
+            style={{
+              backgroundColor: `rgb(${rgbInfo?.red}, ${rgbInfo?.green}, ${rgbInfo?.blue})`,
+            }}
+          ></div>
+        ) : (
+          <div></div>
+        )}
         <Button
           classNames={['apply-color']}
           innerText={'Apply color'}
           type={'submit'}
         />
       </form>
-      {showModal && <Modal closeModal={handleModal} />}
+      {showModal && <Modal closeModal={handleModal} rgbInfo={rgbInfo} />}
     </section>
   );
 }

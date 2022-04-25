@@ -1,9 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../Components/Button';
 import Input from '../Components/Input';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../Validations/InputCheck';
+import { useDispatch } from 'react-redux';
+import { boxAdded } from '../Store/Actions';
 
 interface FormRGBInputs {
   red: string;
@@ -12,6 +15,8 @@ interface FormRGBInputs {
 }
 
 function BoxInserter(): JSX.Element {
+  const dispatch = useDispatch();
+
   const {
     register,
     formState: { errors },
@@ -19,28 +24,28 @@ function BoxInserter(): JSX.Element {
     reset,
   } = useForm<FormRGBInputs>({ resolver: yupResolver(schema) });
 
-  const [localRGB, setLocalRGB] = useState<FormRGBInputs>();
-
-  useEffect(() => {
-    console.log(localRGB);
-  }, [localRGB]);
+  // const [localRGB, setLocalRGB] = useState<FormRGBInputs>();
 
   function onSubmit(data: FormRGBInputs): void {
-    setLocalRGB({
-      red: String(data.red),
-      green: String(data.green),
-      blue: String(data.blue),
-    });
+    dispatch(
+      boxAdded({
+        red: String(data.red),
+        green: String(data.green),
+        blue: String(data.blue),
+      })
+    );
     reset();
   }
 
   const handleRandomRGB = useCallback(() => {
-    setLocalRGB({
-      red: String(Math.floor(Math.random() * 256)),
-      green: String(Math.floor(Math.random() * 256)),
-      blue: String(Math.floor(Math.random() * 256)),
-    });
-  }, []);
+    dispatch(
+      boxAdded({
+        red: String(Math.floor(Math.random() * 256)),
+        green: String(Math.floor(Math.random() * 256)),
+        blue: String(Math.floor(Math.random() * 256)),
+      })
+    );
+  }, [dispatch]);
 
   return (
     <section className="box-inserter">
