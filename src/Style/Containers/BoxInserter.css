@@ -11,7 +11,7 @@
 .box-inserter h3 {
   color: var(--textColor);
   margin: 0;
-  padding-bottom: 0.5rem;
+  padding-bottom: 1rem;
   text-align: center;
   font-family: var(--fontSora);
 }

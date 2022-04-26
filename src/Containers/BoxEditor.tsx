@@ -1,4 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  BaseSyntheticEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../Components/Button';
 import Input from '../Components/Input';
@@ -26,7 +31,10 @@ function BoxEditor(): JSX.Element {
     handleSubmit,
     reset,
     setValue,
-  } = useForm<FormRGBInputs>({ resolver: yupResolver(schema) });
+  } = useForm<FormRGBInputs>({
+    resolver: yupResolver(schema),
+    mode: 'onChange',
+  });
 
   const [rgbInfo, setRgbInfo] = useState<BoxItem>();
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -63,13 +71,56 @@ function BoxEditor(): JSX.Element {
     setShowModal(newShowModal);
   }, [showModal]);
 
+  function changeColor(color: keyof BoxItem, e: BaseSyntheticEvent) {
+    if (rgbInfo) {
+      const newRgbInfo = {
+        ...rgbInfo,
+        [color]: String(e.target.value),
+      };
+      setRgbInfo(newRgbInfo);
+    }
+  }
+
+  const handleChangeRed = useCallback(
+    (e: BaseSyntheticEvent) => {
+      changeColor('red', e);
+    },
+    [rgbInfo]
+  );
+
+  const handleChangeGreen = useCallback(
+    (e: BaseSyntheticEvent) => {
+      changeColor('green', e);
+    },
+    [rgbInfo]
+  );
+
+  const handleChangeBlue = useCallback(
+    (e: BaseSyntheticEvent) => {
+      changeColor('blue', e);
+    },
+    [rgbInfo]
+  );
+
   return (
     <section className="box-editor">
       <h3>Box Editor</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Input label={'red'} register={register} />
-        <Input label={'green'} register={register} />
-        <Input label={'blue'} register={register} />
+        <Input
+          label={'red'}
+          register={register}
+          handleChange={handleChangeRed}
+        />
+        <Input
+          label={'green'}
+          register={register}
+          handleChange={handleChangeGreen}
+        />
+        <Input
+          label={'blue'}
+          register={register}
+          handleChange={handleChangeBlue}
+        />
         <p className="errors-editor">
           {errors.red?.message || errors.green?.message || errors.blue?.message}
         </p>

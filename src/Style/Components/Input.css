@@ -7,11 +7,11 @@ label {
 
 input {
   width: 3rem;
-  margin: 0.5rem;
+  margin: 0.2rem;
   padding: 0.3rem;
   border: 0;
   background-color: var(--bgInput);
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 input:focus {
@@ -23,4 +23,9 @@ input:focus {
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
 }

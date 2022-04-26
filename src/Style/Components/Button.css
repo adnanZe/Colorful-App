@@ -1,8 +1,10 @@
 @import '../Abstracts/_index.css';
 button {
-  padding: 0.8rem 1rem;
+  margin: 0.2rem;
+  padding: 0.5rem 0.8rem;
   border: 0;
   background-color: var(--primaryColor);
+  font-size: 0.8rem;
 
   color: var(--textColor);
   font-family: var(--fontRoboto);

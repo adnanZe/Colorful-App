@@ -1,7 +1,9 @@
 @import '../Abstracts/_index.css';
 
 .toggle-darkMode {
-  font-size: 0.2rem;
+  font-size: 0.17rem;
+  position: absolute;
+  transform: translateX(calc(50vw - 19em));
 }
 
 .toggle-checkbox {
@@ -12,7 +14,6 @@
 }
 
 .toggle-slot {
-  margin: auto;
   position: relative;
   height: 10em;
   width: 20em;
