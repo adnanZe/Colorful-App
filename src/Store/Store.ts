@@ -1,15 +1,14 @@
-import { createStore, Store, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunk, { ThunkMiddleware } from "redux-thunk";
-import { BoxAction } from "./Actions";
-import boxReducer, { BoxState } from "./Reducers";
+import { createStore, compose } from 'redux';
+import boxReducer from './Reducers';
 
-const store: Store = createStore(
-    boxReducer, 
-    composeWithDevTools(
-        applyMiddleware(thunk as ThunkMiddleware<BoxState, BoxAction>)
-    )
-);
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(boxReducer, composeEnhancers());
 
 export default store;

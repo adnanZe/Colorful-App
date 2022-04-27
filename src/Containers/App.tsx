@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import Title from '../Components/Title';
+import Title from '../Components/Header';
 import useLocalStorage from 'use-local-storage';
 import ToggleDarkMode from '../Components/ToggleDarkMode';
 import BoxEditor from './BoxEditor';

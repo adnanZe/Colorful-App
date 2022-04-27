@@ -3,7 +3,7 @@ import React from 'react';
 const TITLE_WORDS = 'Color editor';
 
 function Title(): JSX.Element {
-  function addCustomPropCSS(order: number): React.CSSProperties {
+  function addCustomPropCSS(order: number) {
     return { '--order': order } as React.CSSProperties;
   }
 

@@ -5,47 +5,37 @@ import React, {
   useState,
 } from 'react';
 import { useForm } from 'react-hook-form';
-import Button from '../Components/Button';
-import Input from '../Components/Input';
+import Button, { ButtonType } from '../Components/Button';
+import Input, { FormRGBInputs } from '../Components/RgbInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../Validations/InputCheck';
 import Modal from '../Components/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { BoxItem } from '../Store/Reducers';
-import store from '../Store/Store';
-import { boxAdded } from '../Store/Actions';
-
-interface FormRGBInputs {
-  red: string;
-  green: string;
-  blue: string;
-}
+import { BoxItem, getBoxItemSelected, getIsSelected } from '../Store/Reducers';
+import { boxDeleted, boxUpdated } from '../Store/Actions';
 
 function BoxEditor(): JSX.Element {
-  const boxItem = useSelector(store.getState);
+  const currentBoxSelector = useSelector(getBoxItemSelected);
+  const isSelectedBox = useSelector(getIsSelected);
   const dispatch = useDispatch();
 
   const {
     register,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
     handleSubmit,
     reset,
     setValue,
   } = useForm<FormRGBInputs>({
     resolver: yupResolver(schema),
-    mode: 'onChange',
+    mode: 'onBlur',
   });
 
   const [rgbInfo, setRgbInfo] = useState<BoxItem>();
   const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
-    setRgbInfo(
-      boxItem.boxList.find(
-        (box: BoxItem) => box.boxId == boxItem.selectedBoxNumber
-      )
-    );
-  }, [boxItem]);
+    setRgbInfo(currentBoxSelector);
+  }, [currentBoxSelector]);
 
   useEffect(() => {
     if (rgbInfo) {
@@ -57,12 +47,13 @@ function BoxEditor(): JSX.Element {
 
   function onSubmit(data: FormRGBInputs): void {
     dispatch(
-      boxAdded({
+      boxUpdated({
         red: String(data.red),
         green: String(data.green),
         blue: String(data.blue),
       })
     );
+
     reset();
   }
 
@@ -102,6 +93,13 @@ function BoxEditor(): JSX.Element {
     [rgbInfo]
   );
 
+  const handleDeleteBox = useCallback(() => {
+    dispatch(boxDeleted());
+    setValue('red', '');
+    setValue('green', '');
+    setValue('blue', '');
+  }, []);
+
   return (
     <section className="box-editor">
       <h3>Box Editor</h3>
@@ -128,8 +126,9 @@ function BoxEditor(): JSX.Element {
         <Button
           classNames={['info']}
           innerText={'Info'}
-          type={'button'}
+          type={ButtonType.button}
           onClick={handleModal}
+          isDisabled={!isSelectedBox}
         />
         {rgbInfo ? (
           <div
@@ -137,17 +136,27 @@ function BoxEditor(): JSX.Element {
             style={{
               backgroundColor: `rgb(${rgbInfo?.red}, ${rgbInfo?.green}, ${rgbInfo?.blue})`,
             }}
-          ></div>
+          >
+            <Button
+              classNames={['delete-box']}
+              innerText={'Delete'}
+              type={ButtonType.button}
+              onClick={handleDeleteBox}
+            />
+          </div>
         ) : (
           <div></div>
         )}
         <Button
           classNames={['apply-color']}
           innerText={'Apply color'}
-          type={'submit'}
+          type={ButtonType.submit}
+          isDisabled={!isValid || (!isDirty && !isSelectedBox)}
         />
       </form>
-      {showModal && <Modal closeModal={handleModal} rgbInfo={rgbInfo} />}
+      {showModal && (
+        <Modal closeModal={handleModal} rgbInfo={currentBoxSelector} />
+      )}
     </section>
   );
 }

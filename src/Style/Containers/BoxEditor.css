@@ -81,17 +81,6 @@
   font-size: 0.8rem;
   letter-spacing: 0.05rem;
   word-spacing: 0;
-}
-
-/* .selected-color {
-} */
-
-.errors-editor {
-  color: var(--thirdColor);
-  height: 0.8rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.05rem;
-  word-spacing: 0;
   transition: var(--transition);
 }
 
@@ -99,4 +88,10 @@
   height: 1rem;
   width: 10rem;
   color: var(--textColor);
+}
+
+.box-editor .selected-color {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

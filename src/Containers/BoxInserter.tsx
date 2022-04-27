@@ -1,30 +1,23 @@
-/* eslint-disable no-unused-vars */
 import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
-import Button from '../Components/Button';
-import Input from '../Components/Input';
+import Button, { ButtonType } from '../Components/Button';
+import Input, { FormRGBInputs } from '../Components/RgbInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../Validations/InputCheck';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { boxAdded } from '../Store/Actions';
-
-interface FormRGBInputs {
-  red: string;
-  green: string;
-  blue: string;
-}
+import { getIsMaximum } from '../Store/Reducers';
 
 function BoxInserter(): JSX.Element {
+  const isMaximum = useSelector(getIsMaximum);
   const dispatch = useDispatch();
 
   const {
     register,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
     handleSubmit,
     reset,
-  } = useForm<FormRGBInputs>({ resolver: yupResolver(schema) });
-
-  // const [localRGB, setLocalRGB] = useState<FormRGBInputs>();
+  } = useForm<FormRGBInputs>({ resolver: yupResolver(schema), mode: 'onBlur' });
 
   function onSubmit(data: FormRGBInputs): void {
     dispatch(
@@ -57,13 +50,21 @@ function BoxInserter(): JSX.Element {
         <p className="errors-inserter">
           {errors.red?.message || errors.green?.message || errors.blue?.message}
         </p>
-        <Button classNames={['insert']} innerText={'Insert'} type={'submit'} />
+        <Button
+          classNames={['insert']}
+          innerText={'Insert'}
+          type={ButtonType.submit}
+          isDisabled={!isValid || !isDirty}
+        />
         <Button
           classNames={['insert-random']}
           innerText={'Insert random'}
-          type={'button'}
+          type={ButtonType.button}
           onClick={handleRandomRGB}
         />
+        {isMaximum && (
+          <p className="alert-maximum">Please delete or edit boxes</p>
+        )}
       </form>
     </section>
   );
