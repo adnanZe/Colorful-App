@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.28545b50.chunk.css",
-    "main.js": "/static/js/main.65c48b42.chunk.js",
-    "main.js.map": "/static/js/main.65c48b42.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.0e3c8482.js",
-    "runtime-main.js.map": "/static/js/runtime-main.0e3c8482.js.map",
-    "static/js/2.1e9c5ba9.chunk.js": "/static/js/2.1e9c5ba9.chunk.js",
-    "static/js/2.1e9c5ba9.chunk.js.map": "/static/js/2.1e9c5ba9.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.28545b50.chunk.css.map": "/static/css/main.28545b50.chunk.css.map",
-    "static/js/2.1e9c5ba9.chunk.js.LICENSE.txt": "/static/js/2.1e9c5ba9.chunk.js.LICENSE.txt",
-    "static/media/index.css": "/static/media/Color_Logo.ec724b2a.png"
+    "main.css": "/Colorful-App/static/css/main.a50a8487.chunk.css",
+    "main.js": "/Colorful-App/static/js/main.65c48b42.chunk.js",
+    "main.js.map": "/Colorful-App/static/js/main.65c48b42.chunk.js.map",
+    "runtime-main.js": "/Colorful-App/static/js/runtime-main.e9cb2e81.js",
+    "runtime-main.js.map": "/Colorful-App/static/js/runtime-main.e9cb2e81.js.map",
+    "static/js/2.1e9c5ba9.chunk.js": "/Colorful-App/static/js/2.1e9c5ba9.chunk.js",
+    "static/js/2.1e9c5ba9.chunk.js.map": "/Colorful-App/static/js/2.1e9c5ba9.chunk.js.map",
+    "index.html": "/Colorful-App/index.html",
+    "static/css/main.a50a8487.chunk.css.map": "/Colorful-App/static/css/main.a50a8487.chunk.css.map",
+    "static/js/2.1e9c5ba9.chunk.js.LICENSE.txt": "/Colorful-App/static/js/2.1e9c5ba9.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/Colorful-App/static/media/Color_Logo.ec724b2a.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.0e3c8482.js",
+    "static/js/runtime-main.e9cb2e81.js",
     "static/js/2.1e9c5ba9.chunk.js",
-    "static/css/main.28545b50.chunk.css",
+    "static/css/main.a50a8487.chunk.css",
     "static/js/main.65c48b42.chunk.js"
   ]
 }
