@@ -2,7 +2,7 @@
   "name": "code-style-starter-project",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://adnanze.github.io",
+  "homepage": "https://adnanze.github.io/Colorful-App/",
   "dependencies": {
     "-": "^0.0.1",
     "@hookform/resolvers": "^2.8.8",
