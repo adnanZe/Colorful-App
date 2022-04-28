@@ -44,9 +44,21 @@ function BoxInserter(): JSX.Element {
     <section className="box-inserter">
       <h3>Box Inserter</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Input label="red" register={register} />
-        <Input label="green" register={register} />
-        <Input label="blue" register={register} />
+        <Input
+          label="red"
+          register={register}
+          isError={errors.red ? true : false}
+        />
+        <Input
+          label="green"
+          register={register}
+          isError={errors.green ? true : false}
+        />
+        <Input
+          label="blue"
+          register={register}
+          isError={errors.blue ? true : false}
+        />
         <p className="errors-inserter">
           {errors.red?.message || errors.green?.message || errors.blue?.message}
         </p>

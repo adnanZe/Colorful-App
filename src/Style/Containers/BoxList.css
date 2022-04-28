@@ -23,11 +23,11 @@
 .box-list > div {
   height: 5rem;
   margin: 0.4rem;
-  border: 0.2rem solid transparent;
+  cursor: pointer;
 }
 
 .box-list > div.active {
-  border: 0.2rem solid var(--fifthColor);
+  transform: scale(1.1);
 }
 
 @media only screen and (min-width: 600px) {

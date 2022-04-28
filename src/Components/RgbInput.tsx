@@ -11,18 +11,22 @@ type InputProps = {
   label: Path<FormRGBInputs>;
   register: UseFormRegister<FormRGBInputs>;
   handleChange?(e: BaseSyntheticEvent): void;
+  isError?: boolean;
+  isDisabled?: boolean;
 };
 // memo
 function Input(props: InputProps): JSX.Element {
-  const { label, register, handleChange } = props;
+  const { label, register, handleChange, isError, isDisabled } = props;
 
   return (
-    <label>
+    <label className={isDisabled ? 'disabled' : ''}>
       {label}:
       <input
         type="number"
         {...register(label, { onChange: handleChange })}
         id={label}
+        className={isError ? 'error' : ''}
+        disabled={isDisabled}
       />
     </label>
   );

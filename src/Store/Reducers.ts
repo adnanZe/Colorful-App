@@ -10,23 +10,21 @@ export interface BoxItem {
   boxId: string;
 }
 
-export interface BoxState {
+export interface BoxesState {
   boxList: BoxItem[];
   selectedBoxNumber: string | null;
   isMaximum: boolean;
-  isSelected: boolean;
 }
 
-const initialState: BoxState = {
+const initialState: BoxesState = {
   boxList: [],
   selectedBoxNumber: null,
   isMaximum: false,
-  isSelected: false,
 };
 
 const MAX_NUMBER_BOXES = 9;
 
-const boxReducer = (state = initialState, action: BoxAction): BoxState => {
+const boxReducer = (state = initialState, action: BoxAction): BoxesState => {
   switch (action.type) {
     case BoxActionTypes.BoxAdded: {
       if (state.boxList.length === MAX_NUMBER_BOXES) {
@@ -58,7 +56,6 @@ const boxReducer = (state = initialState, action: BoxAction): BoxState => {
 
       return {
         ...state,
-        isSelected: false,
         selectedBoxNumber: null,
         boxList: [
           ...state.boxList.slice(0, boxIdSelected),
@@ -75,7 +72,6 @@ const boxReducer = (state = initialState, action: BoxAction): BoxState => {
       return {
         ...state,
         selectedBoxNumber: action.payload.boxId,
-        isSelected: true,
       };
     }
 
@@ -87,7 +83,6 @@ const boxReducer = (state = initialState, action: BoxAction): BoxState => {
             (box: BoxItem) => box.boxId != state.selectedBoxNumber
           ),
         ],
-        isSelected: false,
         isMaximum: false,
         selectedBoxNumber: null,
       };
@@ -98,7 +93,7 @@ const boxReducer = (state = initialState, action: BoxAction): BoxState => {
   }
 };
 
-export const getBoxItemSelected = (state: BoxState): BoxItem | null => {
+export const getBoxItemSelected = (state: BoxesState): BoxItem | null => {
   const boxSelected = state.boxList.find(
     (box: BoxItem) => box.boxId == state.selectedBoxNumber
   );
@@ -106,16 +101,12 @@ export const getBoxItemSelected = (state: BoxState): BoxItem | null => {
   return boxSelected || null;
 };
 
-export const getBoxList = (state: BoxState): BoxItem[] => {
+export const getBoxList = (state: BoxesState): BoxItem[] => {
   return state.boxList;
 };
 
-export const getIsMaximum = (state: BoxState): boolean => {
+export const getIsMaximum = (state: BoxesState): boolean => {
   return state.isMaximum;
-};
-
-export const getIsSelected = (state: BoxState): boolean => {
-  return state.isSelected;
 };
 
 export default boxReducer;

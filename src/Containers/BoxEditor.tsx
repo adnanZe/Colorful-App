@@ -11,14 +11,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../Validations/InputCheck';
 import Modal from '../Components/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { BoxItem, getBoxItemSelected, getIsSelected } from '../Store/Reducers';
+import { BoxItem, getBoxItemSelected } from '../Store/Reducers';
 import { boxDeleted, boxUpdated } from '../Store/Actions';
 import { ColorPicker, useColor as useColorPallet } from 'react-color-palette';
 import 'react-color-palette/lib/css/styles.css';
 
 function BoxEditor(): JSX.Element {
   const currentBox = useSelector(getBoxItemSelected);
-  const isSelectedBox = useSelector(getIsSelected);
   const dispatch = useDispatch();
 
   const {
@@ -137,16 +136,22 @@ function BoxEditor(): JSX.Element {
           label={'red'}
           register={register}
           handleChange={handleChangeRed}
+          isError={errors.red ? true : false}
+          isDisabled={currentBox ? false : true}
         />
         <Input
           label={'green'}
           register={register}
           handleChange={handleChangeGreen}
+          isError={errors.green ? true : false}
+          isDisabled={currentBox ? false : true}
         />
         <Input
           label={'blue'}
           register={register}
           handleChange={handleChangeBlue}
+          isError={errors.blue ? true : false}
+          isDisabled={currentBox ? false : true}
         />
         <p className="errors-editor">
           {errors.red?.message || errors.green?.message || errors.blue?.message}
@@ -157,7 +162,7 @@ function BoxEditor(): JSX.Element {
           innerText={'Info'}
           type={ButtonType.button}
           onClick={handleModal}
-          isDisabled={!isSelectedBox}
+          isDisabled={!currentBox}
         />
         {rgbInfo ? (
           <div
@@ -168,8 +173,8 @@ function BoxEditor(): JSX.Element {
             onClick={handleOpenPallet}
           >
             <Button
-              classNames={['delete-box']}
-              innerText={'Delete'}
+              classNames={['preview-box']}
+              innerText={'Preview'}
               type={ButtonType.button}
               onClick={handleDeleteBox}
             />
@@ -181,11 +186,15 @@ function BoxEditor(): JSX.Element {
           classNames={['apply-color']}
           innerText={'Apply color'}
           type={ButtonType.submit}
-          isDisabled={!isValid || !isDirty || !isSelectedBox}
+          isDisabled={!isValid || !isDirty || !currentBox}
         />
       </form>
       {showModal && currentBox && (
-        <Modal closeModal={handleModal} rgbInfo={currentBox} />
+        <Modal
+          closeModal={handleModal}
+          rgbInfo={currentBox}
+          handleDeleteBox={handleDeleteBox}
+        />
       )}
       {showPallet && (
         <aside className="color-pallet">

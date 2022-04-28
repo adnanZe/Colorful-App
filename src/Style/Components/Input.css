@@ -5,6 +5,10 @@ label {
   color: var(--textColor);
 }
 
+label.disabled {
+  opacity: 0.5;
+}
+
 input {
   width: 3rem;
   margin: 0.2rem;
@@ -12,6 +16,10 @@ input {
   border: 0;
   background-color: var(--bgInput);
   font-size: 1rem;
+}
+
+input.error {
+  background-color: red;
 }
 
 input:focus {
