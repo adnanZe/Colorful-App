@@ -15,9 +15,8 @@ input {
 }
 
 input:focus {
-  background-color: var(--fifthColor);
-  color: var(--textColor);
-  outline: none;
+  /* color: var(--textColor); */
+  outline: var(--fifthColor) solid 0.25rem;
 }
 
 input::-webkit-outer-spin-button,

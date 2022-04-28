@@ -13,6 +13,8 @@ import Modal from '../Components/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { BoxItem, getBoxItemSelected, getIsSelected } from '../Store/Reducers';
 import { boxDeleted, boxUpdated } from '../Store/Actions';
+import { ColorPicker, useColor as useColorPallet } from 'react-color-palette';
+import 'react-color-palette/lib/css/styles.css';
 
 function BoxEditor(): JSX.Element {
   const currentBoxSelector = useSelector(getBoxItemSelected);
@@ -32,6 +34,12 @@ function BoxEditor(): JSX.Element {
 
   const [rgbInfo, setRgbInfo] = useState<BoxItem>();
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [showPallet, setShowPallet] = useState<boolean>(false);
+  const [colorPallet, setColorPallet] = useColorPallet('rgb', {
+    r: Number(rgbInfo?.red),
+    g: Number(rgbInfo?.green),
+    b: Number(rgbInfo?.blue),
+  });
 
   useEffect(() => {
     setRgbInfo(currentBoxSelector);
@@ -42,6 +50,14 @@ function BoxEditor(): JSX.Element {
       setValue('red', rgbInfo?.red);
       setValue('green', rgbInfo?.green);
       setValue('blue', rgbInfo?.blue);
+
+      // if (Number(rgbInfo.red)) {
+      //   setColorPallet({
+      //     red: Number(rgbInfo.red),
+      //     g: Number(rgbInfo.green),
+      //     b: Number(rgbInfo.blue),
+      //   });
+      // }
     }
   }, [rgbInfo]);
 
@@ -100,6 +116,18 @@ function BoxEditor(): JSX.Element {
     setValue('blue', '');
   }, []);
 
+  const handleOpenPallet = useCallback(() => {
+    setShowPallet(true);
+  }, []);
+
+  const handleClosePallet = useCallback(() => {
+    setShowPallet(false);
+  }, []);
+
+  const handleColorPallet = useCallback(() => {
+    console.log(colorPallet);
+  }, []);
+
   return (
     <section className="box-editor">
       <h3>Box Editor</h3>
@@ -136,6 +164,7 @@ function BoxEditor(): JSX.Element {
             style={{
               backgroundColor: `rgb(${rgbInfo?.red}, ${rgbInfo?.green}, ${rgbInfo?.blue})`,
             }}
+            onClick={handleOpenPallet}
           >
             <Button
               classNames={['delete-box']}
@@ -156,6 +185,26 @@ function BoxEditor(): JSX.Element {
       </form>
       {showModal && (
         <Modal closeModal={handleModal} rgbInfo={currentBoxSelector} />
+      )}
+      {showPallet && (
+        <aside className="color-pallet">
+          <Button
+            classNames={['close-pallet']}
+            type={ButtonType.button}
+            onClick={handleClosePallet}
+            innerText={'X'}
+          />
+          <ColorPicker
+            width={200}
+            height={200}
+            color={colorPallet}
+            onChangeComplete={handleColorPallet}
+            onChange={setColorPallet}
+            hideHSV
+            hideHEX
+            dark
+          />
+        </aside>
       )}
     </section>
   );
