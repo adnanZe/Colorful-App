@@ -17,7 +17,7 @@ import { ColorPicker, useColor as useColorPallet } from 'react-color-palette';
 import 'react-color-palette/lib/css/styles.css';
 
 function BoxEditor(): JSX.Element {
-  const currentBoxSelector = useSelector(getBoxItemSelected);
+  const currentBox = useSelector(getBoxItemSelected);
   const isSelectedBox = useSelector(getIsSelected);
   const dispatch = useDispatch();
 
@@ -32,7 +32,7 @@ function BoxEditor(): JSX.Element {
     mode: 'onBlur',
   });
 
-  const [rgbInfo, setRgbInfo] = useState<BoxItem>();
+  const [rgbInfo, setRgbInfo] = useState<BoxItem | null>();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showPallet, setShowPallet] = useState<boolean>(false);
   const [colorPallet, setColorPallet] = useColorPallet('rgb', {
@@ -42,8 +42,8 @@ function BoxEditor(): JSX.Element {
   });
 
   useEffect(() => {
-    setRgbInfo(currentBoxSelector);
-  }, [currentBoxSelector]);
+    setRgbInfo(currentBox);
+  }, [currentBox]);
 
   useEffect(() => {
     if (rgbInfo) {
@@ -110,6 +110,7 @@ function BoxEditor(): JSX.Element {
   );
 
   const handleDeleteBox = useCallback(() => {
+    setShowPallet(false);
     dispatch(boxDeleted());
     setValue('red', '');
     setValue('green', '');
@@ -180,11 +181,11 @@ function BoxEditor(): JSX.Element {
           classNames={['apply-color']}
           innerText={'Apply color'}
           type={ButtonType.submit}
-          isDisabled={!isValid || (!isDirty && !isSelectedBox)}
+          isDisabled={!isValid || !isDirty || !isSelectedBox}
         />
       </form>
-      {showModal && (
-        <Modal closeModal={handleModal} rgbInfo={currentBoxSelector} />
+      {showModal && currentBox && (
+        <Modal closeModal={handleModal} rgbInfo={currentBox} />
       )}
       {showPallet && (
         <aside className="color-pallet">

@@ -63,7 +63,7 @@ function BoxInserter(): JSX.Element {
           onClick={handleRandomRGB}
         />
         {isMaximum && (
-          <p className="alert-maximum">Please delete or edit boxes</p>
+          <p className="alert-maximum">Maximum number of 9 boxes reached.</p>
         )}
       </form>
     </section>

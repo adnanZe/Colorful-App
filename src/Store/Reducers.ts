@@ -11,7 +11,7 @@ export interface BoxItem {
 }
 
 export interface BoxState {
-  boxList: Array<BoxItem>;
+  boxList: BoxItem[];
   selectedBoxNumber: string | null;
   isMaximum: boolean;
   isSelected: boolean;
@@ -24,10 +24,12 @@ const initialState: BoxState = {
   isSelected: false,
 };
 
+const MAX_NUMBER_BOXES = 9;
+
 const boxReducer = (state = initialState, action: BoxAction): BoxState => {
   switch (action.type) {
     case BoxActionTypes.BoxAdded: {
-      if (state.boxList.length === 9) {
+      if (state.boxList.length === MAX_NUMBER_BOXES) {
         return {
           ...state,
           isMaximum: true,
@@ -50,20 +52,13 @@ const boxReducer = (state = initialState, action: BoxAction): BoxState => {
     }
 
     case BoxActionTypes.BoxUpdate: {
-      if (!state.selectedBoxNumber) {
-        return state;
-      }
-
-      const boxSelected = state.boxList.find(
-        (box: BoxItem) => box.boxId == state.selectedBoxNumber
-      );
       const boxIdSelected = state.boxList.findIndex(
-        (box: BoxItem) => boxSelected == box
+        (box: BoxItem) => box.boxId == state.selectedBoxNumber
       );
 
       return {
+        ...state,
         isSelected: false,
-        isMaximum: false,
         selectedBoxNumber: null,
         boxList: [
           ...state.boxList.slice(0, boxIdSelected),
@@ -103,15 +98,15 @@ const boxReducer = (state = initialState, action: BoxAction): BoxState => {
   }
 };
 
-export const getBoxItemSelected = (state: BoxState): BoxItem | undefined => {
+export const getBoxItemSelected = (state: BoxState): BoxItem | null => {
   const boxSelected = state.boxList.find(
     (box: BoxItem) => box.boxId == state.selectedBoxNumber
   );
 
-  return boxSelected;
+  return boxSelected || null;
 };
 
-export const getBoxList = (state: BoxState): BoxItem[] | undefined => {
+export const getBoxList = (state: BoxState): BoxItem[] => {
   return state.boxList;
 };
 
