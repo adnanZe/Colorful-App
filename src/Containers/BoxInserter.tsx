@@ -5,11 +5,13 @@ import Input, { FormRGBInputs } from '../Components/RgbInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../Validations/InputCheck';
 import { useDispatch, useSelector } from 'react-redux';
-import { boxAdded } from '../Store/Actions';
-import { getIsMaximum } from '../Store/Reducers';
+// import { boxAdded } from '../Store/Actions';
+// import { getIsMaximum } from '../Store/Reducers';
+import { store } from '../Store_toolkit';
+import { boxAdded } from '../Store_toolkit/StoreReducer';
 
 function BoxInserter(): JSX.Element {
-  const isMaximum = useSelector(getIsMaximum);
+  const boxStore = useSelector(store.getState);
   const dispatch = useDispatch();
 
   const {
@@ -20,13 +22,13 @@ function BoxInserter(): JSX.Element {
   } = useForm<FormRGBInputs>({ resolver: yupResolver(schema), mode: 'onBlur' });
 
   function onSubmit(data: FormRGBInputs): void {
-    dispatch(
-      boxAdded({
-        red: String(data.red),
-        green: String(data.green),
-        blue: String(data.blue),
-      })
-    );
+    // dispatch(
+    //   boxAdded({
+    //     red: String(data.red),
+    //     green: String(data.green),
+    //     blue: String(data.blue),
+    //   })
+    // );
     reset();
   }
 
@@ -38,10 +40,17 @@ function BoxInserter(): JSX.Element {
         blue: String(Math.floor(Math.random() * 256)),
       })
     );
+    // dispatch(
+    //   boxAdded({
+    //     red: String(Math.floor(Math.random() * 256)),
+    //     green: String(Math.floor(Math.random() * 256)),
+    //     blue: String(Math.floor(Math.random() * 256)),
+    //   })
+    // );
   }, [dispatch]);
 
   return (
-    <section className="box-inserter">
+    <article id="box-inserter">
       <h3>Box Inserter</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -59,26 +68,32 @@ function BoxInserter(): JSX.Element {
           register={register}
           isError={errors.blue ? true : false}
         />
-        <p className="errors-inserter">
+        <mark>
           {errors.red?.message || errors.green?.message || errors.blue?.message}
-        </p>
+        </mark>
         <Button
           classNames={['insert']}
           innerText={'Insert'}
-          type={ButtonType.submit}
+          type={ButtonType.SUBMIT}
           isDisabled={!isValid || !isDirty}
         />
+      </form>
+
+      <section>
         <Button
           classNames={['insert-random']}
           innerText={'Insert random'}
-          type={ButtonType.button}
-          onClick={handleRandomRGB}
+          type={ButtonType.BUTTON}
+          handleClick={handleRandomRGB}
         />
-        {isMaximum && (
-          <p className="alert-maximum">Maximum number of 9 boxes reached.</p>
+
+        {boxStore.box.isMaximum && (
+          <mark className="alert-maximum">
+            Maximum number of 9 boxes reached.
+          </mark>
         )}
-      </form>
-    </section>
+      </section>
+    </article>
   );
 }
 

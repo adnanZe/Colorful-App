@@ -1,0 +1,56 @@
+[data-theme='dark'] {
+  --bgHeader: DarkSlateGrey;
+  --bgMain: DimGray;
+  --bgFooter: Grey;
+  --bgArticle: DarkSlateGrey;
+
+  --bgButton: DarkMagenta;
+  --bgButtonHover: orange;
+
+  --bgInput: HotPink;
+  --bgInputError: green;
+  --inputColor: burlywood;
+  --inputPlaceholder: white;
+  --inputFocusOutline: red;
+
+  --headerArticleColor: Azure;
+  --titleColor: LemonChiffon;
+  --primaryColor: GhostWhite;
+  --dangerColor: red;
+  --warningColor: yellow;
+
+  --colorSlotDarkMode: black;
+  --toggleButtonDarkMode: blue;
+  --moonColor: orange;
+
+  --bgModal: dimgray;
+
+  --Primary: #d0bcff;
+  --PrimaryContainer: #4f378b;
+  --Secondary: #ccc2dc;
+  --SecondaryContainer: #4a4458;
+  --Tertiary: #efb8c8;
+  --TertiaryContainer: #633b48;
+  --Surface: #1c1b1f;
+  --SurfaceVariant: #49454f;
+  --Background: #1c1b1f;
+  --Error: #f2b8b5;
+  --ErrorContainer: #8c1d18;
+  --onPrimary: #371e73;
+  --onPrimaryContainer: #eaddff;
+  --onSecondary: #332d41;
+  --onSecondaryContainer: #e8def8;
+  --onTertiary: #492532;
+  --onTertiaryContainer: #ffd8e4;
+  --onSurface: #e6e1e5;
+  --onSurfaceVariant: #cac4d0;
+  --onError: #601410;
+  --onErrorContainer: #f9dedc;
+  --onBackground: #e6e1e5;
+  --outline: #938f99;
+  --shadow: #000000;
+  --surfaceTint: #d0bcff;
+  --inverseSurface: #e6e1e5;
+  --inverseOnSurface: #313033;
+  --inversePrimary: #6750a4;
+}

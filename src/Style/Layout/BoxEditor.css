@@ -1,0 +1,16 @@
+article#box-editor {
+  position: relative;
+
+  background-color: var(--SurfaceVariant);
+}
+
+article#box-editor > section > figure {
+  justify-self: stretch !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+article#box-editor figcaption {
+  color: var(--Primary);
+}

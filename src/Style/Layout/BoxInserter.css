@@ -1,0 +1,12 @@
+article#box-inserter {
+  background-color: var(--SurfaceVariant);
+}
+
+article#box-inserter > h3 {
+  padding-bottom: 1rem;
+}
+
+mark {
+  background-color: transparent;
+  color: var(--Error);
+}

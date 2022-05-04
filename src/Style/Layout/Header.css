@@ -1,0 +1,37 @@
+header {
+  display: flex;
+  justify-content: space-between;
+
+  background-color: var(--Background);
+  transition: var(--transition);
+  padding: 1rem;
+}
+
+hgroup {
+  position: relative;
+
+  height: 1.5rem;
+  width: 20rem;
+
+  font-family: var(--fontSora);
+  font-weight: bolder;
+  font-size: 1.5rem;
+  color: var(--Primary);
+}
+
+hgroup h1,
+hgroup p {
+  position: absolute;
+}
+
+/* hgroup > h1 {
+  animation: var(--wordAnim);
+}
+
+hgroup > p:first-of-type {
+  animation: var(--wordOutAnimFirstMotto), var(--displayOutAnim);
+}
+
+hgroup > p:last-child {
+  animation: var(--wordOutAnimSecondMotto), var(--displayOutAnim);
+} */

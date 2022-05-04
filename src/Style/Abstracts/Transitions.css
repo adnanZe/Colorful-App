@@ -1,0 +1,13 @@
+:root {
+  --transition: all 1s ease 0s;
+  --transition-toggle-slot: background-color 250ms;
+
+  --transition-toggle-button: background-color 250ms, border-color 250ms,
+    transform 500ms cubic-bezier(0.26, 2, 0.46, 0.71);
+
+  --transition-sun-icon: opacity 150ms,
+    transform 500ms cubic-bezier(0.26, 2, 0.46, 0.71);
+
+  --transition-moon-icon: opacity 150ms,
+    transform 500ms cubic-bezier(0.26, 2.5, 0.46, 0.71);
+}

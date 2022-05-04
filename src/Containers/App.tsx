@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import Title from '../Components/Header';
+import Title from '../Components/Title';
 import useLocalStorage from 'use-local-storage';
 import ToggleDarkMode from '../Components/ToggleDarkMode';
 import BoxEditor from './BoxEditor';
@@ -22,15 +22,18 @@ function App(): JSX.Element {
 
   return (
     <div className="App" data-theme={theme}>
+      <span id="splash-overlay" className="splash"></span>
+      <span id="welcome" className="z-depth-4"></span>
       <header>
         <Title />
-        <ToggleDarkMode handleChange={switchTheme} />
+        <ToggleDarkMode handleClick={switchTheme} />
       </header>
       <main>
         <BoxInserter />
         <BoxEditor />
         <BoxList />
       </main>
+      {/* <footer>Footer</footer> */}
     </div>
   );
 }

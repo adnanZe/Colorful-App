@@ -21,6 +21,6 @@
     "jsx": "react-jsx",
     "importsNotUsedAsValues": "remove"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/Store_toolkit/index.ts"],
   "exclude": ["node_modules"]
 }

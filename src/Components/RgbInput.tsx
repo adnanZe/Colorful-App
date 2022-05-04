@@ -19,16 +19,14 @@ function Input(props: InputProps): JSX.Element {
   const { label, register, handleChange, isError, isDisabled } = props;
 
   return (
-    <label className={isDisabled ? 'disabled' : ''}>
-      {label}:
-      <input
-        type="number"
-        {...register(label, { onChange: handleChange })}
-        id={label}
-        className={isError ? 'error' : ''}
-        disabled={isDisabled}
-      />
-    </label>
+    <input
+      type="number"
+      {...register(label, { onChange: handleChange })}
+      id={label}
+      className={isError ? 'error' : ''}
+      disabled={isDisabled}
+      placeholder={label}
+    />
   );
 }
 

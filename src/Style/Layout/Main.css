@@ -1,0 +1,22 @@
+.App {
+  min-height: 100vh;
+  background: var(--Background);
+  transition: var(--transition);
+}
+
+main {
+  margin: 1rem 0;
+  padding-bottom: 2.5rem;
+}
+
+article {
+  padding: 0.8rem;
+
+  transition: var(--transition);
+  border-radius: var(--borderRadius);
+}
+
+article > h3 {
+  text-align: center;
+  color: var(--Primary);
+}

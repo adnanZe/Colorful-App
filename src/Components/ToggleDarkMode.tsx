@@ -1,16 +1,16 @@
 import React from 'react';
 
 interface ToggleDarkModeProps {
-  handleChange(): void;
+  handleClick(): void;
 }
 
-function ToggleDarkMode({ handleChange }: ToggleDarkModeProps): JSX.Element {
+function ToggleDarkMode({ handleClick }: ToggleDarkModeProps): JSX.Element {
   return (
     <label className="toggle-darkMode">
       <input
         className="toggle-checkbox"
         type="checkbox"
-        onClick={handleChange}
+        onClick={handleClick}
       />
       <div className="toggle-slot">
         <div className="sun-icon-wrapper">

@@ -11,13 +11,26 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../Validations/InputCheck';
 import Modal from '../Components/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { BoxItem, getBoxItemSelected } from '../Store/Reducers';
-import { boxDeleted, boxUpdated } from '../Store/Actions';
-import { ColorPicker, useColor as useColorPallet } from 'react-color-palette';
+// import { BoxItem, getBoxItemSelected } from '../Store/Reducers';
+// import { boxDeleted, boxUpdated } from '../Store/Actions';
 import 'react-color-palette/lib/css/styles.css';
+import { ChromePicker, ColorResult } from 'react-color';
+import { store } from '../Store_toolkit';
+import {
+  getBoxItemSelected,
+  BoxItem,
+  boxUpdated,
+  boxDeleted,
+} from '../Store_toolkit/StoreReducer';
+
+interface RGBColorPallet {
+  b: number;
+  g: number;
+  r: number;
+}
 
 function BoxEditor(): JSX.Element {
-  const currentBox = useSelector(getBoxItemSelected);
+  const boxStoreSelected = useSelector(getBoxItemSelected);
   const dispatch = useDispatch();
 
   const {
@@ -34,29 +47,19 @@ function BoxEditor(): JSX.Element {
   const [rgbInfo, setRgbInfo] = useState<BoxItem | null>();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showPallet, setShowPallet] = useState<boolean>(false);
-  const [colorPallet, setColorPallet] = useColorPallet('rgb', {
-    r: Number(rgbInfo?.red),
-    g: Number(rgbInfo?.green),
-    b: Number(rgbInfo?.blue),
-  });
+  const [colorPallet, setColorPallet] = useState<RGBColorPallet>();
 
   useEffect(() => {
-    setRgbInfo(currentBox);
-  }, [currentBox]);
+    console.log(boxStoreSelected);
+
+    setRgbInfo(boxStoreSelected);
+  }, [boxStoreSelected]);
 
   useEffect(() => {
     if (rgbInfo) {
       setValue('red', rgbInfo?.red);
       setValue('green', rgbInfo?.green);
       setValue('blue', rgbInfo?.blue);
-
-      // if (Number(rgbInfo.red)) {
-      //   setColorPallet({
-      //     red: Number(rgbInfo.red),
-      //     g: Number(rgbInfo.green),
-      //     b: Number(rgbInfo.blue),
-      //   });
-      // }
     }
   }, [rgbInfo]);
 
@@ -68,7 +71,6 @@ function BoxEditor(): JSX.Element {
         blue: String(data.blue),
       })
     );
-
     reset();
   }
 
@@ -124,12 +126,26 @@ function BoxEditor(): JSX.Element {
     setShowPallet(false);
   }, []);
 
-  const handleColorPallet = useCallback(() => {
-    console.log(colorPallet);
-  }, []);
+  const handleChangePallet = useCallback(
+    (updatedColor: ColorResult) => {
+      setColorPallet(updatedColor.rgb);
+      if (rgbInfo && colorPallet) {
+        const newRgbInfo = rgbInfo;
+        newRgbInfo.red = String(colorPallet.r);
+        newRgbInfo.green = String(colorPallet.g);
+        newRgbInfo.blue = String(colorPallet.b);
+        setRgbInfo(newRgbInfo);
+
+        setValue('red', rgbInfo?.red);
+        setValue('green', rgbInfo?.green);
+        setValue('blue', rgbInfo?.blue);
+      }
+    },
+    [colorPallet]
+  );
 
   return (
-    <section className="box-editor">
+    <article id="box-editor">
       <h3>Box Editor</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
@@ -137,36 +153,37 @@ function BoxEditor(): JSX.Element {
           register={register}
           handleChange={handleChangeRed}
           isError={errors.red ? true : false}
-          isDisabled={currentBox ? false : true}
+          isDisabled={boxStoreSelected ? false : true}
         />
         <Input
           label={'green'}
           register={register}
           handleChange={handleChangeGreen}
           isError={errors.green ? true : false}
-          isDisabled={currentBox ? false : true}
+          isDisabled={boxStoreSelected ? false : true}
         />
         <Input
           label={'blue'}
           register={register}
           handleChange={handleChangeBlue}
           isError={errors.blue ? true : false}
-          isDisabled={currentBox ? false : true}
+          isDisabled={boxStoreSelected ? false : true}
         />
-        <p className="errors-editor">
+        <mark>
           {errors.red?.message || errors.green?.message || errors.blue?.message}
-        </p>
-        <p className="editor-boxNumber">Box Number: {rgbInfo?.boxNumber}</p>
+        </mark>
+
         <Button
-          classNames={['info']}
-          innerText={'Info'}
-          type={ButtonType.button}
-          onClick={handleModal}
-          isDisabled={!currentBox}
+          classNames={['apply-color']}
+          innerText={'Apply color'}
+          type={ButtonType.SUBMIT}
+          isDisabled={!isValid || !isDirty || !boxStoreSelected}
         />
+      </form>
+
+      <section>
         {rgbInfo ? (
-          <div
-            className="selected-color"
+          <figure
             style={{
               backgroundColor: `rgb(${rgbInfo?.red}, ${rgbInfo?.green}, ${rgbInfo?.blue})`,
             }}
@@ -175,48 +192,53 @@ function BoxEditor(): JSX.Element {
             <Button
               classNames={['preview-box']}
               innerText={'Preview'}
-              type={ButtonType.button}
-              onClick={handleDeleteBox}
+              type={ButtonType.BUTTON}
             />
-          </div>
+          </figure>
         ) : (
-          <div></div>
+          <figure></figure>
         )}
+
+        {rgbInfo ? (
+          <figcaption>Box Number: {rgbInfo?.boxNumber}</figcaption>
+        ) : (
+          <figcaption></figcaption>
+        )}
+
         <Button
-          classNames={['apply-color']}
-          innerText={'Apply color'}
-          type={ButtonType.submit}
-          isDisabled={!isValid || !isDirty || !currentBox}
+          classNames={['info']}
+          innerText={'Info'}
+          type={ButtonType.BUTTON}
+          handleClick={handleModal}
+          isDisabled={!boxStoreSelected}
         />
-      </form>
-      {showModal && currentBox && (
-        <Modal
-          closeModal={handleModal}
-          rgbInfo={currentBox}
-          handleDeleteBox={handleDeleteBox}
-        />
-      )}
+
+        {showModal && boxStoreSelected && (
+          <aside id="info-modal">
+            <Modal
+              handleClick={handleModal}
+              handleDeleteBox={handleDeleteBox}
+            />
+          </aside>
+        )}
+      </section>
+
       {showPallet && (
-        <aside className="color-pallet">
+        <aside id="color-pallet">
           <Button
             classNames={['close-pallet']}
-            type={ButtonType.button}
-            onClick={handleClosePallet}
+            type={ButtonType.BUTTON}
+            handleClick={handleClosePallet}
             innerText={'X'}
           />
-          <ColorPicker
-            width={200}
-            height={200}
+          <ChromePicker
+            onChangeComplete={handleChangePallet}
+            disableAlpha={true}
             color={colorPallet}
-            onChangeComplete={handleColorPallet}
-            onChange={setColorPallet}
-            hideHSV
-            hideHEX
-            dark
           />
         </aside>
       )}
-    </section>
+    </article>
   );
 }
 

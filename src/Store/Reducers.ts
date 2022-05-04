@@ -76,7 +76,7 @@ const boxReducer = (state = initialState, action: BoxAction): BoxesState => {
     }
 
     case BoxActionTypes.BoxDeleted: {
-      return {
+      const newStateBoxDeleted = {
         ...state,
         boxList: [
           ...state.boxList.filter(
@@ -85,6 +85,15 @@ const boxReducer = (state = initialState, action: BoxAction): BoxesState => {
         ],
         isMaximum: false,
         selectedBoxNumber: null,
+      };
+
+      return {
+        ...newStateBoxDeleted,
+        ...newStateBoxDeleted.boxList.map((box: BoxItem, index: number) => {
+          box.boxNumber = String(index + 1);
+
+          return box;
+        }),
       };
     }
 

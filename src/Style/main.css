@@ -1,0 +1,24 @@
+@import './Abstracts/Animations.css';
+@import './Abstracts/Transitions.css';
+@import './Abstracts/Variables.css';
+
+@import './Base/Reset.css';
+@import './Base/Typography.css';
+
+/* @import './Layout/Welcome.css'; */
+@import './Layout/Header.css';
+@import './Layout/Footer.css';
+@import './Layout/Grid.css';
+@import './Layout/Main.css';
+@import './Layout/BoxInserter.css';
+@import './Layout/BoxEditor.css';
+@import './Layout/BoxList.css';
+
+@import './Components/ToggleDarkMode.css';
+@import './Components/Button.css';
+@import './Components/Input.css';
+@import './Components/Modal.css';
+@import './Components/ColorPallet.css';
+
+@import './Themes/Light.css';
+@import './Themes/Dark.css';

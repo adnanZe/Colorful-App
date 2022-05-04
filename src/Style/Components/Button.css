@@ -1,29 +1,29 @@
-@import '../Abstracts/_index.css';
 button {
   margin: 0.2rem;
   padding: 0.5rem 0.8rem;
   border: 0;
-  background-color: var(--primaryColor);
+  border: 2px solid var(--outline);
+  background-color: transparent;
+
   font-size: 0.8rem;
+  color: var(--Primary);
+  font-family: inherit;
+  letter-spacing: 0.05rem;
 
-  color: var(--textColor);
-  font-family: var(--fontRoboto);
-  letter-spacing: 0.1rem;
-
-  border-radius: 0.7rem;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.25);
   transition: var(--transition);
   cursor: pointer;
   outline: none;
 }
 
 button:hover {
-  background-color: var(--fifthColor);
-  box-shadow: 0px 15px 20px rgba(255, 255, 255, 0.4);
-  transform: translateY(-7px);
+  background-color: var(--onPrimaryContainer);
+  /* box-shadow: 0px 15px 20px var(--outline); */
+  /* transform: translateY(-7px); */
+  color: var(--onPrimary);
 }
 
 button:disabled {
+  pointer-events: none;
   opacity: 0.4;
   cursor: not-allowed;
 }

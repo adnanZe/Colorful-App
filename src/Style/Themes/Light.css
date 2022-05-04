@@ -1,0 +1,55 @@
+:root {
+  --bgHeader: GhostWhite;
+  --bgMain: LemonChiffon;
+  --bgFooter: Azure;
+  --bgArticle: GhostWhite;
+  --bgButton: coral;
+  --bgButtonHover: darkblue;
+
+  --bgInput: HotPink;
+  --bgInputError: green;
+  --inputColor: burlywood;
+  --inputPlaceholder: white;
+  --inputFocusOutline: red;
+
+  --headerArticleColor: brown;
+  --titleColor: black;
+  --primaryColor: Grey;
+  --dangerColor: red;
+  --warningColor: yellow;
+
+  --colorSlot: lightgreen;
+  --toggleButton: red;
+  --sunColor: darkblue;
+
+  --bgModal: white;
+
+  --Primary: #6750a4;
+  --PrimaryContainer: #eaddff;
+  --Secondary: #625b71;
+  --SecondaryContainer: #e8def8;
+  --Tertiary: #7d5260;
+  --TertiaryContainer: #ffd8e4;
+  --Surface: #fffbfe;
+  --SurfaceVariant: #e7e0ec;
+  --Background: #fffbfe;
+  --Error: #b3261e;
+  --ErrorContainer: #f9dedc;
+  --onPrimary: #ffffff;
+  --onPrimaryContainer: #21005e;
+  --onSecondary: #ffffff;
+  --onSecondaryContainer: #1e192b;
+  --onTertiary: #ffffff;
+  --onTertiaryContainer: #370b1e;
+  --onSurface: #1c1b1f;
+  --onSurfaceVariant: #49454e;
+  --onError: #ffffff;
+  --onErrorContainer: #370b1e;
+  --onBackground: #1c1b1f;
+  --outline: #79747e;
+  --shadow: #000000;
+  --surfaceTint: #6750a4;
+  --inverseSurface: #313033;
+  --inverseOnSurface: #f4eff4;
+  --inversePrimary: #d0bcff;
+}

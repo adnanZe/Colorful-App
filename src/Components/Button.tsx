@@ -1,25 +1,25 @@
 import React from 'react';
 
 export enum ButtonType {
-  button = 'button',
-  submit = 'submit',
+  BUTTON = 'button',
+  SUBMIT = 'submit',
 }
 interface ButtonProps {
   classNames: string[];
   innerText: string;
   type: ButtonType;
-  onClick?(): void;
+  handleClick?(): void;
   isDisabled?: boolean;
 }
 
 function Button(props: ButtonProps): JSX.Element {
-  const { classNames, innerText, type, onClick, isDisabled } = props;
+  const { classNames, innerText, type, handleClick, isDisabled } = props;
 
   return (
     <button
       className={`button-colorful ${classNames.join(' ')}`}
       type={type}
-      onClick={onClick}
+      onClick={handleClick}
       disabled={isDisabled}
     >
       {innerText}

@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;500;700;800&display=swap');
+
+:root {
+  --fontSize: calc(10px + 12 * ((100vw - 300px) / 1300));
+
+  --fontRoboto: 'Roboto', sans-serif;
+  --fontSora: 'Sora', sans-serif;
+}
+
+html {
+  font-size: var(--fontSize);
+  /* font-size:calc(12px + 1.5vw); for text */
+  /* font-size-adjust: 0.5; */
+}
+
+.App {
+  font-family: var(--fontRoboto);
+}

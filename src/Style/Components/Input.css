@@ -1,38 +1,42 @@
-@import '../Abstracts/_index.css';
-
-label {
-  margin-right: 0.3rem;
-  color: var(--textColor);
-}
-
-label.disabled {
-  opacity: 0.5;
-}
-
 input {
-  width: 3rem;
+  width: 4rem;
   margin: 0.2rem;
   padding: 0.3rem;
   border: 0;
-  background-color: var(--bgInput);
+  background-color: var(--inversePrimary);
+
+  color: var(--Primary);
   font-size: 1rem;
+  font-family: inherit;
+}
+
+input:hover {
+  background-color: var(--onPrimaryContainer);
+  color: var(--onPrimary);
+}
+
+input::placeholder {
+  color: var(--Primary);
 }
 
 input.error {
-  background-color: red;
+  background-color: var(--ErrorContainer);
+  color: var(--Error);
 }
 
 input:focus {
-  /* color: var(--textColor); */
-  outline: var(--fifthColor) solid 0.25rem;
+  outline: none;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
+input.error::placeholder {
+  color: var(--Error);
 }
 
-input[type='number'] {
-  -moz-appearance: textfield;
+input.error:hover {
+  background-color: var(--onErrorContainer);
+  color: var(--onError);
+}
+
+input:disabled {
+  opacity: 0.5;
 }
