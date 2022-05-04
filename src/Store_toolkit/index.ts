@@ -1,11 +1,11 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { boxReducer } from './StoreReducer';
 
 export const store = configureStore({
   reducer: {
     box: boxReducer,
   },
-  middleware: getDefaultMiddleware({
-    serializableCheck: false,
-  }),
+  // middleware: getDefaultMiddleware({
+  //   serializableCheck: false,
+  // }),
 });

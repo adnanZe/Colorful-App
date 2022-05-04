@@ -24,6 +24,12 @@ export interface BoxItem {
 
 const MAX_NUMBER_BOXES = 9;
 
+function getDate() {
+  const dateNow = new Date();
+
+  return dateNow.getDate();
+}
+
 const boxSlice = createSlice({
   name: 'boxRGB',
   initialState,
@@ -36,7 +42,7 @@ const boxSlice = createSlice({
           ...action.payload,
           boxNumber: String(state.boxList.length + 1),
           boxId: v4(),
-          creationTime: new Date(),
+          creationTime: getDate(),
         });
       }
     },
