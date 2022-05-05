@@ -15,6 +15,7 @@ import { BoxItem, getBoxItemSelected } from '../Store/Reducers';
 import { boxDeleted, boxUpdated } from '../Store/Actions';
 import 'react-color-palette/lib/css/styles.css';
 import { ChromePicker, ColorResult } from 'react-color';
+import store from '../Store/Store';
 
 interface RGBColorPallet {
   b: number;
@@ -24,6 +25,7 @@ interface RGBColorPallet {
 
 function BoxEditor(): JSX.Element {
   const boxStoreSelected = useSelector(getBoxItemSelected);
+  const boxesState = useSelector(store.getState);
   const dispatch = useDispatch();
 
   const {
@@ -51,6 +53,11 @@ function BoxEditor(): JSX.Element {
       setValue('red', rgbInfo?.red);
       setValue('green', rgbInfo?.green);
       setValue('blue', rgbInfo?.blue);
+      setColorPallet({
+        r: Number(rgbInfo?.red),
+        g: Number(rgbInfo?.green),
+        b: Number(rgbInfo?.blue),
+      });
     }
   }, [rgbInfo]);
 
@@ -104,18 +111,17 @@ function BoxEditor(): JSX.Element {
   const handleDeleteBox = useCallback(() => {
     setShowPallet(false);
     dispatch(boxDeleted());
-    setValue('red', '');
-    setValue('green', '');
-    setValue('blue', '');
-  }, []);
+    reset();
+    setShowModal(false);
+  }, [boxesState.boxList]);
 
   const handleOpenPallet = useCallback(() => {
     setShowPallet(true);
-  }, []);
+  }, [showPallet]);
 
   const handleClosePallet = useCallback(() => {
     setShowPallet(false);
-  }, []);
+  }, [showPallet]);
 
   const handleChangePallet = useCallback(
     (updatedColor: ColorResult) => {
