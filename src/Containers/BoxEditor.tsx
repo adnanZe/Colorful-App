@@ -42,7 +42,7 @@ function BoxEditor(): JSX.Element {
   const [rgbInfo, setRgbInfo] = useState<BoxItem | null>();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showPallet, setShowPallet] = useState<boolean>(false);
-  const [colorPallet, setColorPallet] = useState<RGBColorPallet>();
+  // const [colorPallet, setColorPallet] = useState<RGBColorPallet>();
 
   useEffect(() => {
     setRgbInfo(boxStoreSelected);
@@ -53,11 +53,11 @@ function BoxEditor(): JSX.Element {
       setValue('red', rgbInfo?.red);
       setValue('green', rgbInfo?.green);
       setValue('blue', rgbInfo?.blue);
-      setColorPallet({
-        r: Number(rgbInfo?.red),
-        g: Number(rgbInfo?.green),
-        b: Number(rgbInfo?.blue),
-      });
+      // setColorPallet({
+      //   r: Number(rgbInfo?.red),
+      //   g: Number(rgbInfo?.green),
+      //   b: Number(rgbInfo?.blue),
+      // });
     }
   }, [rgbInfo]);
 
@@ -123,23 +123,45 @@ function BoxEditor(): JSX.Element {
     setShowPallet(false);
   }, [showPallet]);
 
+  // console.log(rgbInfo);
   const handleChangePallet = useCallback(
     (updatedColor: ColorResult) => {
-      setColorPallet(updatedColor.rgb);
-      if (rgbInfo && colorPallet) {
+      console.log(updatedColor);
+
+      if (rgbInfo) {
         const newRgbInfo = rgbInfo;
-        newRgbInfo.red = String(colorPallet.r);
-        newRgbInfo.green = String(colorPallet.g);
-        newRgbInfo.blue = String(colorPallet.b);
+        newRgbInfo.red = String(updatedColor.rgb.r);
+        newRgbInfo.green = String(updatedColor.rgb.g);
+        newRgbInfo.blue = String(updatedColor.rgb.b);
         setRgbInfo(newRgbInfo);
 
-        setValue('red', rgbInfo?.red);
-        setValue('green', rgbInfo?.green);
-        setValue('blue', rgbInfo?.blue);
+        // setValue('red', String(updatedColor.rgb.r));
+        // setValue('green', String(updatedColor.rgb.g));
+        // setValue('blue', String(updatedColor.rgb.b));
       }
     },
-    [colorPallet]
+    [rgbInfo]
   );
+
+  useEffect(() => {
+    setValue('red', String(rgbInfo?.red));
+    setValue('green', String(rgbInfo?.green));
+    setValue('blue', String(rgbInfo?.blue));
+  }, [rgbInfo]);
+
+  // useEffect(() => {
+  //   if (rgbInfo) {
+  //     const newRgbInfo = rgbInfo;
+  //     newRgbInfo.red = String(colorPallet?.r);
+  //     newRgbInfo.green = String(colorPallet?.g);
+  //     newRgbInfo.blue = String(colorPallet?.b);
+  //     setRgbInfo(newRgbInfo);
+
+  //     setValue('red', rgbInfo?.red);
+  //     setValue('green', rgbInfo?.green);
+  //     setValue('blue', rgbInfo?.blue);
+  //   }
+  // }, [colorPallet]);
 
   return (
     <article id="box-editor">
@@ -229,9 +251,13 @@ function BoxEditor(): JSX.Element {
             innerText={'X'}
           />
           <ChromePicker
-            onChangeComplete={handleChangePallet}
+            onChange={handleChangePallet}
             disableAlpha={true}
-            color={colorPallet}
+            color={{
+              r: Number(rgbInfo?.red),
+              g: Number(rgbInfo?.green),
+              b: Number(rgbInfo?.blue),
+            }}
           />
         </aside>
       )}
