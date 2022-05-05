@@ -1,17 +1,16 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { boxSelected } from '../Store/Actions';
-import { BoxItem, getBoxItemSelected, getBoxList } from '../Store/Reducers';
+import { store } from '../Store';
+import { BoxItem, boxSelected } from '../Store/Store';
 
 function BoxList(): JSX.Element {
-  const boxItems = useSelector(getBoxList);
-  const boxActive = useSelector(getBoxItemSelected);
+  const boxesState = useSelector(store.getState);
   const dispatch = useDispatch();
 
   return (
     <article id="box-list">
       <h3>Box List</h3>
-      {boxItems.map((box: BoxItem) => {
+      {boxesState.box.boxList.map((box: BoxItem) => {
         return (
           <li
             // eslint-disable-next-line react/jsx-no-bind
@@ -19,7 +18,9 @@ function BoxList(): JSX.Element {
             style={{
               backgroundColor: `rgb(${box.red}, ${box.green}, ${box.blue} )`,
             }}
-            className={boxActive == box ? 'active' : ''}
+            className={
+              boxesState.box.selectedBoxNumber === box.boxId ? 'active' : ''
+            }
             id={box.boxId}
             key={box.boxId}
           ></li>

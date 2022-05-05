@@ -11,10 +11,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../Validations/InputCheck';
 import Modal from '../Components/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { BoxItem, getBoxItemSelected } from '../Store/Reducers';
-import { boxDeleted, boxUpdated } from '../Store/Actions';
 import 'react-color-palette/lib/css/styles.css';
 import { ChromePicker, ColorResult } from 'react-color';
+import { BoxItem, boxUpdated, boxDeleted } from '../Store/Store';
+import { store } from '../Store';
 
 interface RGBColorPallet {
   b: number;
@@ -23,7 +23,7 @@ interface RGBColorPallet {
 }
 
 function BoxEditor(): JSX.Element {
-  const boxStoreSelected = useSelector(getBoxItemSelected);
+  const boxesState = useSelector(store.getState);
   const dispatch = useDispatch();
 
   const {
@@ -43,8 +43,11 @@ function BoxEditor(): JSX.Element {
   const [colorPallet, setColorPallet] = useState<RGBColorPallet>();
 
   useEffect(() => {
-    setRgbInfo(boxStoreSelected);
-  }, [boxStoreSelected]);
+    const boxSelected = boxesState.box.boxList?.find(
+      (box: BoxItem) => box.boxId == boxesState.box.selectedBoxNumber
+    );
+    setRgbInfo(boxSelected);
+  }, [boxesState.box.selectedBoxNumber]);
 
   useEffect(() => {
     if (rgbInfo) {
@@ -144,21 +147,21 @@ function BoxEditor(): JSX.Element {
           register={register}
           handleChange={handleChangeRed}
           isError={errors.red ? true : false}
-          isDisabled={boxStoreSelected ? false : true}
+          isDisabled={boxesState.box.selectedBoxNumber ? false : true}
         />
         <Input
           label={'green'}
           register={register}
           handleChange={handleChangeGreen}
           isError={errors.green ? true : false}
-          isDisabled={boxStoreSelected ? false : true}
+          isDisabled={boxesState.box.selectedBoxNumber ? false : true}
         />
         <Input
           label={'blue'}
           register={register}
           handleChange={handleChangeBlue}
           isError={errors.blue ? true : false}
-          isDisabled={boxStoreSelected ? false : true}
+          isDisabled={boxesState.box.selectedBoxNumber ? false : true}
         />
         <mark>
           {errors.red?.message || errors.green?.message || errors.blue?.message}
@@ -168,7 +171,7 @@ function BoxEditor(): JSX.Element {
           classNames={['apply-color']}
           innerText={'Apply color'}
           type={ButtonType.SUBMIT}
-          isDisabled={!isValid || !isDirty || !boxStoreSelected}
+          isDisabled={!isValid || !isDirty || !boxesState.box.selectedBoxNumber}
         />
       </form>
 
@@ -201,10 +204,10 @@ function BoxEditor(): JSX.Element {
           innerText={'Info'}
           type={ButtonType.BUTTON}
           handleClick={handleModal}
-          isDisabled={!boxStoreSelected}
+          isDisabled={!boxesState.box.selectedBoxNumber}
         />
 
-        {showModal && boxStoreSelected && (
+        {showModal && boxesState.box.selectedBoxNumber && (
           <aside id="info-modal">
             <Modal
               handleClick={handleModal}

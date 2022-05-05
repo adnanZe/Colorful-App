@@ -5,11 +5,11 @@ import Input, { FormRGBInputs } from '../Components/RgbInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../Validations/InputCheck';
 import { useDispatch, useSelector } from 'react-redux';
-import { boxAdded } from '../Store/Actions';
-import { getIsMaximum } from '../Store/Reducers';
+import { boxAdded } from '../Store/Store';
+import { store } from '../Store';
 
 function BoxInserter(): JSX.Element {
-  const isMaximum = useSelector(getIsMaximum);
+  const boxesState = useSelector(store.getState);
   const dispatch = useDispatch();
 
   const {
@@ -78,7 +78,7 @@ function BoxInserter(): JSX.Element {
           handleClick={handleRandomRGB}
         />
 
-        {isMaximum && (
+        {boxesState.box.isMaximum && (
           <mark className="alert-maximum">
             Maximum number of 9 boxes reached.
           </mark>

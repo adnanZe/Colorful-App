@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getBoxItemSelected } from '../Store/Reducers';
+import { store } from '../Store';
 import Button, { ButtonType } from './Button';
+import { BoxItem } from '../Store/Store';
 
 interface ModalProps {
   handleClick(): void;
-  // rgbInfo?: BoxItem;
   handleDeleteBox(): void;
 }
 
 function Modal(props: ModalProps): JSX.Element {
-  const currentBox = useSelector(getBoxItemSelected);
+  const boxesState = useSelector(store.getState);
+  const [boxInfo, setBoxInfo] = useState<BoxItem | null | undefined>(null);
+
+  useEffect(() => {
+    const boxSelected = boxesState.box.boxList?.find(
+      (box: BoxItem) => box.boxId == boxesState.box.selectedBoxNumber
+    );
+    setBoxInfo(boxSelected);
+  }, [boxesState.box.selectedBoxNumber]);
 
   const { handleClick, handleDeleteBox } = props;
 
@@ -19,17 +27,17 @@ function Modal(props: ModalProps): JSX.Element {
       <button onClick={handleClick}>X</button>
       <div>
         <p>
-          <span>Red:</span> <span>{currentBox?.red}</span>
+          <span>Red:</span> <span>{boxInfo?.red}</span>
         </p>
         <p>
-          <span>Green:</span> <span>{currentBox?.green}</span>
+          <span>Green:</span> <span>{boxInfo?.green}</span>
         </p>
         <p>
-          <span>Blue:</span> <span>{currentBox?.blue}</span>
+          <span>Blue:</span> <span>{boxInfo?.blue}</span>
         </p>
       </div>
-      <p>Box number: {currentBox?.boxNumber}</p>
-      <p>Creation time: {currentBox?.creationTime.toLocaleTimeString()}</p>
+      <p>Box number: {boxInfo?.boxNumber}</p>
+      <p>Creation time: {boxInfo?.creationTime}</p>
 
       <Button
         classNames={['delete-box']}
