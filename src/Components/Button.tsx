@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
 
 export enum ButtonType {
   BUTTON = 'button',
@@ -22,7 +24,8 @@ function Button(props: ButtonProps): JSX.Element {
       onClick={handleClick}
       disabled={isDisabled}
     >
-      {innerText}
+      {/* <FontAwesomeIcon icon={faEye} /> */}
+      {innerText == 'Preview' ? <FontAwesomeIcon icon={faEye} /> : innerText}
     </button>
   );
 }
