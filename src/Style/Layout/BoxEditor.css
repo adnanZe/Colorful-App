@@ -20,6 +20,6 @@ article#box-editor .preview-box {
 }
 
 article#box-editor .preview-box:hover {
-  background-color: var(--onSecondaryContainer);
+  background-color: var(--onPrimaryContainer);
   color: var(--onSecondary);
 }

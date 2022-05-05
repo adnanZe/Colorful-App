@@ -10,6 +10,12 @@ export interface BoxItem {
   boxId: string;
 }
 
+export interface BoxItemRGB {
+  red: string;
+  green: string;
+  blue: string;
+}
+
 export interface BoxesState {
   boxList: BoxItem[];
   selectedBoxNumber: string | null;
@@ -100,6 +106,34 @@ const boxReducer = (state = initialState, action: BoxAction): BoxesState => {
     default:
       return state;
   }
+};
+
+export const getBoxItemRgbSelected = (state: BoxesState): BoxItemRGB | null => {
+  const boxSelected = state.boxList.find(
+    (box: BoxItem) => box.boxId == state.selectedBoxNumber
+  );
+
+  const boxItemRgb = {
+    red: '',
+    green: '',
+    blue: '',
+  };
+
+  if (boxSelected) {
+    boxItemRgb.red = boxSelected.red;
+    boxItemRgb.green = boxSelected.green;
+    boxItemRgb.blue = boxSelected.blue;
+  }
+
+  return boxItemRgb || null;
+};
+
+export const getBoxItemNumberSelected = (state: BoxesState): string | null => {
+  const boxSelected = state.boxList.find(
+    (box: BoxItem) => box.boxId == state.selectedBoxNumber
+  );
+
+  return boxSelected?.boxNumber || null;
 };
 
 export const getBoxItemSelected = (state: BoxesState): BoxItem | null => {

@@ -1,11 +1,15 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { boxSelected } from '../Store/Actions';
-import { BoxItem, getBoxItemSelected, getBoxList } from '../Store/Reducers';
+import {
+  BoxItem,
+  getBoxItemNumberSelected,
+  getBoxList,
+} from '../Store/Reducers';
 
 function BoxList(): JSX.Element {
   const boxItems = useSelector(getBoxList);
-  const boxActive = useSelector(getBoxItemSelected);
+  const boxActive = useSelector(getBoxItemNumberSelected);
   const dispatch = useDispatch();
 
   return (
@@ -19,7 +23,7 @@ function BoxList(): JSX.Element {
             style={{
               backgroundColor: `rgb(${box.red}, ${box.green}, ${box.blue} )`,
             }}
-            className={boxActive == box ? 'active' : ''}
+            className={boxActive == box.boxNumber ? 'active' : ''}
             id={box.boxId}
             key={box.boxId}
           ></li>

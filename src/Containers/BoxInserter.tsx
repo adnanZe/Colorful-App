@@ -17,7 +17,10 @@ function BoxInserter(): JSX.Element {
     formState: { errors, isDirty, isValid },
     handleSubmit,
     reset,
-  } = useForm<FormRGBInputs>({ resolver: yupResolver(schema), mode: 'onBlur' });
+  } = useForm<FormRGBInputs>({
+    resolver: yupResolver(schema),
+    mode: 'onBlur',
+  });
 
   function onSubmit(data: FormRGBInputs): void {
     dispatch(

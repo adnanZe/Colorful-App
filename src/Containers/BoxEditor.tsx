@@ -11,7 +11,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../Validations/InputCheck';
 import Modal from '../Components/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { BoxItem, getBoxItemSelected } from '../Store/Reducers';
+import {
+  getBoxItemNumberSelected,
+  getBoxItemRgbSelected,
+} from '../Store/Reducers';
 import { boxDeleted, boxUpdated } from '../Store/Actions';
 import 'react-color-palette/lib/css/styles.css';
 import { ChromePicker, ColorResult } from 'react-color';
@@ -24,13 +27,14 @@ interface RGBColorPallet {
 }
 
 function BoxEditor(): JSX.Element {
-  const boxStoreSelected = useSelector(getBoxItemSelected);
+  const boxItemRgbSelected = useSelector(getBoxItemRgbSelected);
+  const boxBoxItemIdSelected = useSelector(getBoxItemNumberSelected);
   const boxesState = useSelector(store.getState);
   const dispatch = useDispatch();
 
   const {
     register,
-    formState: { errors, isDirty, isValid },
+    formState: { errors },
     handleSubmit,
     reset,
     setValue,
@@ -39,27 +43,23 @@ function BoxEditor(): JSX.Element {
     mode: 'onBlur',
   });
 
-  const [rgbInfo, setRgbInfo] = useState<BoxItem | null>();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showPallet, setShowPallet] = useState<boolean>(false);
-  // const [colorPallet, setColorPallet] = useState<RGBColorPallet>();
+  const [colorPallet, setColorPallet] = useState<RGBColorPallet>();
 
   useEffect(() => {
-    setRgbInfo(boxStoreSelected);
-  }, [boxStoreSelected]);
+    setColorPallet({
+      r: Number(boxItemRgbSelected?.red),
+      g: Number(boxItemRgbSelected?.green),
+      b: Number(boxItemRgbSelected?.blue),
+    });
 
-  useEffect(() => {
-    if (rgbInfo) {
-      setValue('red', rgbInfo?.red);
-      setValue('green', rgbInfo?.green);
-      setValue('blue', rgbInfo?.blue);
-      // setColorPallet({
-      //   r: Number(rgbInfo?.red),
-      //   g: Number(rgbInfo?.green),
-      //   b: Number(rgbInfo?.blue),
-      // });
+    if (boxItemRgbSelected) {
+      setValue('red', boxItemRgbSelected?.red);
+      setValue('green', boxItemRgbSelected?.green);
+      setValue('blue', boxItemRgbSelected?.blue);
     }
-  }, [rgbInfo]);
+  }, [boxItemRgbSelected]);
 
   function onSubmit(data: FormRGBInputs): void {
     dispatch(
@@ -77,35 +77,35 @@ function BoxEditor(): JSX.Element {
     setShowModal(newShowModal);
   }, [showModal]);
 
-  function changeColor(color: keyof BoxItem, e: BaseSyntheticEvent) {
-    if (rgbInfo) {
-      const newRgbInfo = {
-        ...rgbInfo,
-        [color]: String(e.target.value),
+  function changeColor(color: keyof RGBColorPallet, e: BaseSyntheticEvent) {
+    if (colorPallet) {
+      const newColorPallet = {
+        ...colorPallet,
+        [color]: Number(e.target.value),
       };
-      setRgbInfo(newRgbInfo);
+      setColorPallet(newColorPallet);
     }
   }
 
   const handleChangeRed = useCallback(
     (e: BaseSyntheticEvent) => {
-      changeColor('red', e);
+      changeColor('r', e);
     },
-    [rgbInfo]
+    [colorPallet]
   );
 
   const handleChangeGreen = useCallback(
     (e: BaseSyntheticEvent) => {
-      changeColor('green', e);
+      changeColor('g', e);
     },
-    [rgbInfo]
+    [colorPallet]
   );
 
   const handleChangeBlue = useCallback(
     (e: BaseSyntheticEvent) => {
-      changeColor('blue', e);
+      changeColor('b', e);
     },
-    [rgbInfo]
+    [colorPallet]
   );
 
   const handleDeleteBox = useCallback(() => {
@@ -123,45 +123,20 @@ function BoxEditor(): JSX.Element {
     setShowPallet(false);
   }, [showPallet]);
 
-  // console.log(rgbInfo);
   const handleChangePallet = useCallback(
     (updatedColor: ColorResult) => {
-      console.log(updatedColor);
-
-      if (rgbInfo) {
-        const newRgbInfo = rgbInfo;
-        newRgbInfo.red = String(updatedColor.rgb.r);
-        newRgbInfo.green = String(updatedColor.rgb.g);
-        newRgbInfo.blue = String(updatedColor.rgb.b);
-        setRgbInfo(newRgbInfo);
-
-        // setValue('red', String(updatedColor.rgb.r));
-        // setValue('green', String(updatedColor.rgb.g));
-        // setValue('blue', String(updatedColor.rgb.b));
-      }
+      setColorPallet(updatedColor.rgb);
     },
-    [rgbInfo]
+    [colorPallet]
   );
 
   useEffect(() => {
-    setValue('red', String(rgbInfo?.red));
-    setValue('green', String(rgbInfo?.green));
-    setValue('blue', String(rgbInfo?.blue));
-  }, [rgbInfo]);
-
-  // useEffect(() => {
-  //   if (rgbInfo) {
-  //     const newRgbInfo = rgbInfo;
-  //     newRgbInfo.red = String(colorPallet?.r);
-  //     newRgbInfo.green = String(colorPallet?.g);
-  //     newRgbInfo.blue = String(colorPallet?.b);
-  //     setRgbInfo(newRgbInfo);
-
-  //     setValue('red', rgbInfo?.red);
-  //     setValue('green', rgbInfo?.green);
-  //     setValue('blue', rgbInfo?.blue);
-  //   }
-  // }, [colorPallet]);
+    if (boxBoxItemIdSelected) {
+      setValue('red', String(colorPallet?.r), { shouldValidate: true });
+      setValue('green', String(colorPallet?.g), { shouldValidate: true });
+      setValue('blue', String(colorPallet?.b), { shouldValidate: true });
+    }
+  }, [colorPallet]);
 
   return (
     <article id="box-editor">
@@ -172,21 +147,21 @@ function BoxEditor(): JSX.Element {
           register={register}
           handleChange={handleChangeRed}
           isError={errors.red ? true : false}
-          isDisabled={boxStoreSelected ? false : true}
+          isDisabled={boxBoxItemIdSelected ? false : true}
         />
         <Input
           label={'green'}
           register={register}
           handleChange={handleChangeGreen}
           isError={errors.green ? true : false}
-          isDisabled={boxStoreSelected ? false : true}
+          isDisabled={boxBoxItemIdSelected ? false : true}
         />
         <Input
           label={'blue'}
           register={register}
           handleChange={handleChangeBlue}
           isError={errors.blue ? true : false}
-          isDisabled={boxStoreSelected ? false : true}
+          isDisabled={boxBoxItemIdSelected ? false : true}
         />
         <mark>
           {errors.red?.message || errors.green?.message || errors.blue?.message}
@@ -196,15 +171,15 @@ function BoxEditor(): JSX.Element {
           classNames={['apply-color']}
           innerText={'Apply color'}
           type={ButtonType.SUBMIT}
-          isDisabled={!isValid || !isDirty || !boxStoreSelected}
+          isDisabled={!boxBoxItemIdSelected}
         />
       </form>
 
       <section>
-        {rgbInfo ? (
+        {boxBoxItemIdSelected ? (
           <figure
             style={{
-              backgroundColor: `rgb(${rgbInfo?.red}, ${rgbInfo?.green}, ${rgbInfo?.blue})`,
+              backgroundColor: `rgb(${colorPallet?.r}, ${colorPallet?.g}, ${colorPallet?.b})`,
             }}
             onClick={handleOpenPallet}
           >
@@ -218,8 +193,8 @@ function BoxEditor(): JSX.Element {
           <figure></figure>
         )}
 
-        {rgbInfo ? (
-          <figcaption>Box Number: {rgbInfo?.boxNumber}</figcaption>
+        {colorPallet ? (
+          <figcaption>Box Number: {boxBoxItemIdSelected}</figcaption>
         ) : (
           <figcaption></figcaption>
         )}
@@ -229,10 +204,10 @@ function BoxEditor(): JSX.Element {
           innerText={'Info'}
           type={ButtonType.BUTTON}
           handleClick={handleModal}
-          isDisabled={!boxStoreSelected}
+          isDisabled={!boxBoxItemIdSelected}
         />
 
-        {showModal && boxStoreSelected && (
+        {showModal && boxBoxItemIdSelected && (
           <aside id="info-modal">
             <Modal
               handleClick={handleModal}
@@ -253,11 +228,7 @@ function BoxEditor(): JSX.Element {
           <ChromePicker
             onChange={handleChangePallet}
             disableAlpha={true}
-            color={{
-              r: Number(rgbInfo?.red),
-              g: Number(rgbInfo?.green),
-              b: Number(rgbInfo?.blue),
-            }}
+            color={colorPallet}
           />
         </aside>
       )}
