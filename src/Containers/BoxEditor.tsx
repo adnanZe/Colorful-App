@@ -11,17 +11,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../Validations/InputCheck';
 import Modal from '../Components/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-// import { BoxItem, getBoxItemSelected } from '../Store/Reducers';
-// import { boxDeleted, boxUpdated } from '../Store/Actions';
+import { BoxItem, getBoxItemSelected } from '../Store/Reducers';
+import { boxDeleted, boxUpdated } from '../Store/Actions';
 import 'react-color-palette/lib/css/styles.css';
 import { ChromePicker, ColorResult } from 'react-color';
-import { store } from '../Store_toolkit';
-import {
-  getBoxItemSelected,
-  BoxItem,
-  boxUpdated,
-  boxDeleted,
-} from '../Store_toolkit/StoreReducer';
 
 interface RGBColorPallet {
   b: number;
@@ -50,8 +43,6 @@ function BoxEditor(): JSX.Element {
   const [colorPallet, setColorPallet] = useState<RGBColorPallet>();
 
   useEffect(() => {
-    console.log(boxStoreSelected);
-
     setRgbInfo(boxStoreSelected);
   }, [boxStoreSelected]);
 

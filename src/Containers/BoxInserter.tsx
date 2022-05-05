@@ -5,13 +5,11 @@ import Input, { FormRGBInputs } from '../Components/RgbInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../Validations/InputCheck';
 import { useDispatch, useSelector } from 'react-redux';
-// import { boxAdded } from '../Store/Actions';
-// import { getIsMaximum } from '../Store/Reducers';
-import { store } from '../Store_toolkit';
-import { boxAdded } from '../Store_toolkit/StoreReducer';
+import { boxAdded } from '../Store/Actions';
+import { getIsMaximum } from '../Store/Reducers';
 
 function BoxInserter(): JSX.Element {
-  const boxStore = useSelector(store.getState);
+  const isMaximum = useSelector(getIsMaximum);
   const dispatch = useDispatch();
 
   const {
@@ -22,13 +20,13 @@ function BoxInserter(): JSX.Element {
   } = useForm<FormRGBInputs>({ resolver: yupResolver(schema), mode: 'onBlur' });
 
   function onSubmit(data: FormRGBInputs): void {
-    // dispatch(
-    //   boxAdded({
-    //     red: String(data.red),
-    //     green: String(data.green),
-    //     blue: String(data.blue),
-    //   })
-    // );
+    dispatch(
+      boxAdded({
+        red: String(data.red),
+        green: String(data.green),
+        blue: String(data.blue),
+      })
+    );
     reset();
   }
 
@@ -40,13 +38,6 @@ function BoxInserter(): JSX.Element {
         blue: String(Math.floor(Math.random() * 256)),
       })
     );
-    // dispatch(
-    //   boxAdded({
-    //     red: String(Math.floor(Math.random() * 256)),
-    //     green: String(Math.floor(Math.random() * 256)),
-    //     blue: String(Math.floor(Math.random() * 256)),
-    //   })
-    // );
   }, [dispatch]);
 
   return (
@@ -87,7 +78,7 @@ function BoxInserter(): JSX.Element {
           handleClick={handleRandomRGB}
         />
 
-        {boxStore.box.isMaximum && (
+        {isMaximum && (
           <mark className="alert-maximum">
             Maximum number of 9 boxes reached.
           </mark>
