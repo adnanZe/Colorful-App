@@ -5,9 +5,9 @@ article {
 
 main {
   grid-template:
-    [row1-start] 'inserter' 1fr [row1-end]
-    [row2-start] 'editor' 1fr [row2-end]
-    [row3-start] 'list' 1fr [row3-end]
+    [row1-start] 'inserter' auto [row1-end]
+    [row2-start] 'editor' auto [row2-end]
+    [row3-start] 'list' auto [row3-end]
     / 90vw;
   justify-content: center;
   gap: 1.5rem;
@@ -36,10 +36,10 @@ article {
 article#box-inserter {
   grid-area: inserter;
   grid-template:
-    [row1-start] 'headerArticle headerArticle' 1fr [row1-end]
-    [row2-start] 'form form' 1fr [row2-end]
-    [row3-start] 'form form' 1fr [row3-end]
-    [row4-start] 'form form' 1fr [row4-end]
+    [row1-start] 'headerArticle headerArticle' auto [row1-end]
+    [row2-start] 'form form' auto [row2-end]
+    [row3-start] 'form form' auto [row3-end]
+    [row4-start] 'form form' auto [row4-end]
     [row5-start] 'section section' 1fr [row5-end]
     / 1fr 1fr;
 }
@@ -47,65 +47,65 @@ article#box-inserter {
 article#box-editor {
   grid-area: editor;
   grid-template:
-    [row1-start] 'headerArticle headerArticle' 1fr [row1-end]
-    [row2-start] 'form form' 1fr [row2-end]
-    [row3-start] 'form form' 1fr [row3-end]
-    [row4-start] 'form form' 1fr [row4-end]
-    [row5-start] 'section section' 1fr [row5-end]
-    [row5-start] 'section section' 1fr [row5-end]
-    / 1fr 1fr;
+    [row1-start] 'headerArticle headerArticle' auto [row1-end]
+    [row2-start] 'form form' auto [row2-end]
+    [row3-start] 'form form' auto [row3-end]
+    [row4-start] 'form form' auto [row4-end]
+    [row5-start] 'section section' auto [row5-end]
+    [row5-start] 'section section' auto [row5-end]
+    / auto auto;
 }
 
 article#box-list {
   grid-area: list;
   grid-template:
-    [row1-start] 'headerArticle' 1fr [row1-end]
-    [row2-start] 'orderList ' 1fr [row2-end]
-    [row3-start] 'orderList ' 1fr [row3-end]
-    [row4-start] 'orderList ' 1fr [row4-end]
-    [row5-start] 'orderList ' 1fr [row5-end]
-    [row6-start] 'orderList ' 1fr [row6-end]
-    [row7-start] 'orderList ' 1fr [row7-end]
-    [row8-start] 'orderList ' 1fr [row8-end]
-    [row9-start] 'orderList ' 1fr [row9-end]
-    / 1fr;
+    [row1-start] 'headerArticle' auto [row1-end]
+    [row2-start] 'orderList ' auto [row2-end]
+    [row3-start] 'orderList ' auto [row3-end]
+    [row4-start] 'orderList ' auto [row4-end]
+    [row5-start] 'orderList ' auto [row5-end]
+    [row6-start] 'orderList ' auto [row6-end]
+    [row7-start] 'orderList ' auto [row7-end]
+    [row8-start] 'orderList ' auto [row8-end]
+    [row9-start] 'orderList ' auto [row9-end]
+    / auto;
 }
 
 @media only screen and (min-width: 600px) {
   main {
     grid-template:
-      [row1-start] 'inserter editor' 1fr [row1-end]
-      [row2-start] 'list list' 1fr [row2-end]
+      [row1-start] 'inserter editor' auto [row1-end]
+      [row2-start] 'list list' auto [row2-end]
       / 45vw 45vw;
   }
 
   article#box-list {
     grid-template:
-      [row1-start] 'headerArticle headerArticle' 1fr [row1-end]
-      [row2-start] 'orderList orderList' 1fr [row2-end]
-      [row3-start] 'orderList orderList' 1fr [row3-end]
-      [row4-start] 'orderList orderList' 1fr [row4-end]
-      [row5-start] 'orderList orderList' 1fr [row5-end]
-      [row6-start] 'orderList orderList' 1fr [row6-end]
-      / 1fr 1fr;
+      [row1-start] 'headerArticle headerArticle' auto [row1-end]
+      [row2-start] 'orderList orderList' auto [row2-end]
+      [row3-start] 'orderList orderList' auto [row3-end]
+      [row4-start] 'orderList orderList' auto [row4-end]
+      [row5-start] 'orderList orderList' auto [row5-end]
+      [row6-start] 'orderList orderList' auto [row6-end]
+      / auto auto;
   }
 }
 
 @media only screen and (min-width: 992px) {
   article#box-list {
     grid-template:
-      [row1-start] 'headerArticle headerArticle headerArticle' 1fr [row1-end]
-      [row2-start] 'orderList orderList orderList' 1fr [row2-end]
-      [row3-start] 'orderList orderList orderList' 1fr [row3-end]
-      [row4-start] 'orderList orderList orderList' 1fr [row4-end]
-      / 1fr 1fr 1fr;
+      [row1-start] 'headerArticle headerArticle headerArticle' auto [row1-end]
+      [row2-start] 'orderList orderList orderList' auto [row2-end]
+      [row3-start] 'orderList orderList orderList' auto [row3-end]
+      [row4-start] 'orderList orderList orderList' auto [row4-end]
+      / auto auto auto;
   }
 }
 
 article > form {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(3, auto);
   justify-items: center;
 }
 
@@ -142,8 +142,8 @@ article#box-inserter > section {
 
 article#box-editor > section {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(2, auto);
   justify-items: center;
 }
 
