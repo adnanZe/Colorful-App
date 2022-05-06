@@ -5,6 +5,8 @@
   "homepage": "https://adnanze.github.io/Colorful-App/",
   "dependencies": {
     "-": "^0.0.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "@hookform/resolvers": "^2.8.8",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.14.1",

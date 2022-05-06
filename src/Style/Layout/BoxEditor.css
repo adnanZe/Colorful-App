@@ -14,3 +14,12 @@ article#box-editor > section > figure {
 article#box-editor figcaption {
   color: var(--Primary);
 }
+
+article#box-editor .preview-box {
+  background-color: var(--SecondaryContainer);
+}
+
+article#box-editor .preview-box:hover {
+  background-color: var(--onPrimaryContainer);
+  color: var(--onSecondary);
+}

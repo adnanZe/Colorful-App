@@ -7,7 +7,7 @@ const initialState: BoxesState = {
   isMaximum: false,
 };
 
-interface BoxesState {
+export interface BoxesState {
   boxList: BoxItem[];
   selectedBoxNumber: string | null;
   isMaximum: boolean;
@@ -17,7 +17,7 @@ export interface BoxItem {
   red: string;
   green: string;
   blue: string;
-  creationTime: Date;
+  creationTime: string;
   boxNumber: string;
   boxId: string;
 }
@@ -39,7 +39,9 @@ const boxSlice = createSlice({
         state.isMaximum = true;
       } else {
         state.boxList.push({
-          ...action.payload,
+          red: action.payload.red,
+          green: action.payload.green,
+          blue: action.payload.blue,
           boxNumber: String(state.boxList.length + 1),
           boxId: v4(),
           creationTime: getDate(),
@@ -54,6 +56,7 @@ const boxSlice = createSlice({
       const boxIdSelected = state.boxList.find(
         (box: BoxItem) => box.boxId == state.selectedBoxNumber
       );
+
       if (action.payload && boxIdSelected) {
         boxIdSelected.red = action.payload.red;
         boxIdSelected.green = action.payload.green;
@@ -61,10 +64,18 @@ const boxSlice = createSlice({
       }
     },
 
-    boxDeleted: (state) => {
-      state.boxList.filter(
+    boxDeleted(state) {
+      const newBoxList = state.boxList.filter(
         (box: BoxItem) => box.boxId !== state.selectedBoxNumber
       );
+
+      newBoxList.forEach((box: BoxItem, index: number) => {
+        box.boxNumber = String(index + 1);
+      });
+
+      state.boxList = newBoxList;
+      state.selectedBoxNumber = null;
+      state.isMaximum = false;
     },
   },
 });
@@ -73,19 +84,3 @@ export const { boxAdded, boxSelected, boxDeleted, boxUpdated } =
   boxSlice.actions;
 
 export const boxReducer = boxSlice.reducer;
-
-export const getBoxItemSelected = (state: BoxesState): BoxItem | null => {
-  const boxSelect = state.boxList?.find(
-    (box: BoxItem) => box.boxId == state.selectedBoxNumber
-  );
-
-  return boxSelect || null;
-};
-
-export const getBoxList = (state: BoxesState): BoxItem[] => {
-  return state.boxList;
-};
-
-export const getIsMaximum = (state: BoxesState): boolean => {
-  return state.isMaximum;
-};
