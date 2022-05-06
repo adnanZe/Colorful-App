@@ -82,6 +82,7 @@
     border-radius: 50%;
   }
   100% {
+    border: 0;
     border-radius: 0px;
   }
 }
@@ -92,10 +93,13 @@
     height: 0px;
     padding: 0px;
   }
-  100% {
+  99% {
     top: 50%;
     height: 100%;
     padding: 0px 100%;
+  }
+  100% {
+    padding: 0;
   }
 }
 
